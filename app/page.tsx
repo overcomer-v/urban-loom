@@ -1,126 +1,34 @@
 import Container from "@/components/ui/Container";
-import Subtitle from "@/components/ui/Subtitle";
-import {
-  ArrowRight,
-  ArrowRightCircle,
-  ChevronRightCircle,
-  Images,
-} from "lucide-react";
+import NewArrivals from "@/components/homepage/NewArrivals";
+import FeaturedProducts from "@/components/homepage/ProductsList";
+import TopCategories from "@/components/homepage/TopCategories";
 import Image from "next/image";
+import { Product } from "@/types/products";
 
 //
-export default function Home() {
+export default async function Home() {
+  const products = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`);
+    const data = await res.json();
+    return data.products as Product[];
+  };
+
+   const latestProducts = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products?sort=latest`);
+    const data = await res.json();
+    return data.products as Product[];
+  };
+
+  console.log(await latestProducts());
+  
   return (
     <div className="flex flex-col m-auto bg-transparent w-full">
-      <HeroPage />
+      <HeroSec />
       <TopCategories />
-      <NewArrivals />
+      <NewArrivals products={await latestProducts()} />
       <SubHeroOne />
-      <FeaturedProducts />
-      {/* <SubHero /> */}
+      <FeaturedProducts products={await products()} />
     </div>
-  );
-}
-
-function TopCategories() {
-  return (
-    <Container className="">
-      <div className="grid grid-cols-5 gap-4 pt-24 pb-6">
-        {[
-          {
-            label: "Hoodies",
-            img: "/homepage_decorations/abraham-flores-VoP2WK9rTa4-unsplash.jpg",
-          },
-          {
-            label: "Formalwear",
-            img: "/homepage_decorations/hero3.png",
-          },
-          {
-            label: "Shirts",
-            img: "/homepage_decorations/shirt-mockup-concept-with-plain-clothing.jpg",
-          },
-          {
-            label: "Joggers",
-            img: "/homepage_decorations/leo_visions-tDmx86tPlqA-unsplash.jpg",
-          },
-          {
-            label: "Accessories",
-            img: "/homepage_decorations/fabio-alves-MNzyXXfnnCg-unsplash.jpg",
-          },
-        ].map((category) => (
-          <CategoriesCard
-            key={category.label}
-            label={category.label}
-            img={category.img}
-          />
-        ))}
-      </div>
-    </Container>
-  );
-}
-
-function CategoriesCard({ label, img }: { label: string; img: string }) {
-  return (
-    <div className="relative h-90 rounded-xl overflow-hidden">
-      <Image
-        src={img}
-        alt=""
-        fill
-        className="object-cover absolute"
-        loading="eager"
-      />
-      <div className="w-full h-full absolute bg-black opacity-50"></div>
-      <Images className="absolute top-3 right-3" stroke="white" />
-      <div className="flex items-center gap-3 absolute bottom-8 left-8 border-2 py-2 px-4 border-white rounded-full">
-        <p className="font-medium text-xl text-white  ">{label}</p>
-        <ArrowRight
-          size={28}
-          strokeWidth={2}
-          className="rounded-full bg-white p-1"
-        />
-      </div>
-    </div>
-  );
-}
-
-async function NewArrivals() {
-  const res = await fetch(
-    `https://api.unsplash.com/search/photos?query=street fashion`,
-    {
-      headers: {
-        Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
-      },
-    },
-  );
-  const data = await res.json();
-
-  // console.log(process.env.UNSPLASH_ACCESS_KEY);
-  // console.log(data);
-  const images = data.results;
-  return (
-    <section className="my-16">
-      <Container className="space-y-6">
-        <Subtitle label="Top Picks" />
-        <div className="grid grid-cols-4 items-center justify-between gap-4">
-          {images.map((image: unknown, index: number) => (
-            <div className="flex flex-col gap-4 items-start" key={index}>
-              <Image
-                src={image?.urls?.small}
-                alt=""
-                height={200}
-                width={200}
-                className="h-60 w-full object-cover"
-              />
-              <div className="space-y-1">
-                <p className="opacity-40 text-xs">UNISEX</p>
-                <p className="font-medium">{"The Plumetis knit dress"}</p>
-                <p className="opacity-80">{"300$"}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Container>
-    </section>
   );
 }
 
@@ -154,9 +62,9 @@ function SubHeroOne() {
   );
 }
 
-function HeroPage() {
+function HeroSec() {
   return (
-    <div className="bg-offwhite relative h-180">
+    <div className="bg-offwhite relative lg:h-180 h-140">
       <Image
         src="/young-trendy-woman-model-outside-street-ed.jpg"
         alt=""
@@ -171,7 +79,7 @@ function HeroPage() {
             <span className="text-sm">FASHION & LIFESTYLE</span>
             <div className="w-8 h-0.5 bg-white"></div>
           </div>
-          <p className="text-[4.5rem] leading-20">
+          <p className="lg:text-[4.5rem] text-6xl lg:leading-20">
             Unleash Your Style, Shop the Latest Trends
           </p>
           <p className="opacity-50">
@@ -185,53 +93,5 @@ function HeroPage() {
         </div>
       </Container>
     </div>
-  );
-}
-
-async function FeaturedProducts() {
-  const array = [];
-
-  for (let index = 0; index < 16; index++) {
-    array.push(index);
-  }
-
-  const res = await fetch(
-    `https://api.unsplash.com/search/photos?query=street fashion&page=2&per_page=20`,
-    {
-      headers: {
-        Authorization: `Client-ID ${process.env.UNSPLASH_ACCESS_KEY}`,
-      },
-    },
-  );
-  const data = await res.json();
-
-  // console.log(process.env.UNSPLASH_ACCESS_KEY);
-  // console.log(data);
-  const images = data.results;
-
-  return (
-    <section className="my-12">
-      <Container className="space-y-3">
-        <Subtitle label="Featured Products" />
-        <div className="grid grid-cols-4 items-center justify-between gap-4">
-          {images.map((item: any, index: number) => (
-            <div className="flex flex-col gap-4 items-start" key={index}>
-              <Image
-                src={item.urls.small}
-                alt=""
-                height={200}
-                width={200}
-                className="h-60 w-full object-cover"
-              />
-              <div className="space-y-1">
-                <p className="opacity-40 text-xs">UNISEX</p>
-                <p className="font-medium">{"The Plumetis knit dress"}</p>
-                <p className="opacity-80">{"300$"}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Container>
-    </section>
   );
 }

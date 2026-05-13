@@ -6,7 +6,7 @@ export default function Container({
   children: React.ReactNode;
 }) {
   return (
-    <div className={`px-28 ${className || ""}`} {...props}>
+    <div className={`xl:px-28 px-8 ${className || ""}`} {...props}>
       {children}
     </div>
   );
