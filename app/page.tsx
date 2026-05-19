@@ -3,91 +3,90 @@ import NewArrivals from "@/components/homepage/NewArrivals";
 import FeaturedProducts from "@/components/homepage/ProductsList";
 import TopCategories from "@/components/homepage/TopCategories";
 import Image from "next/image";
-import { Product } from "@/types/products";
+import { getProducts } from "@/lib/products";
+import { getCategories } from "@/lib/categories";
 
 //
 export default async function Home() {
-  const products = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`);
-    const data = await res.json();
-    return data.products as Product[];
-  };
+  const products = await getProducts();
+  const latestProducts = await getProducts("latest");
+  const categories = await getCategories();
 
-   const latestProducts = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products?sort=latest`);
-    const data = await res.json();
-    return data.products as Product[];
-  };
-
-  console.log(await latestProducts());
-  
   return (
     <div className="flex flex-col m-auto bg-transparent w-full">
       <HeroSec />
-      <TopCategories />
-      <NewArrivals products={await latestProducts()} />
+      <TopCategories categories={categories} />
+      <NewArrivals products={latestProducts} />
       <SubHeroOne />
-      <FeaturedProducts products={await products()} />
+      <FeaturedProducts products={products} />
     </div>
   );
 }
 
 function SubHeroOne() {
   return (
-    <Container className="py-12 my-12 bg-neutral-800">
-      <div className="grid grid-cols-2 justify-between w-full">
+    <div className="py-12 my-12 bg-neutral-800">
+      <Container className="grid grid-cols-2 justify-between w-full">
         <div>
           <Image
-            src={"/photo-1564557287817-3785e38ec1f5.jpeg"}
+            src={
+              "/homepage_decorations/mohamed-shimaq-yEkmyaZDiDM-unsplash.jpg"
+            }
             alt=""
-            height={600}
+            height={800}
             width={500}
-            className="object-cover h-100 w-[80%] z-50 rounded-3xl"
+            className="object-cover h-140 w-[80%] z-50 rounded-3xl"
           />
         </div>
 
         <div className="flex flex-col gap-6 items-left text-white justify-center">
-          <p className="text-6xl text-left">Shop the Latest Trends</p>
+          <p className="text-6xl text-left font-heading">
+            Shop the Latest Trends
+          </p>
           <p className="opacity-50 text-xs text-left">
             Urban fashion reimagined scarefully crafted pieces designed to
             express who you are. Every thread tells a story crafted for the
             streets, designed for your identity.
           </p>
-          <button className="border-2 border-white px-8 py-4 w-fit rounded-full mt-3">
+          <button className="border-2 text-sm font-semibold border-white px-8 py-4 w-fit rounded-full mt-3">
             Shop Now
           </button>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 }
 
 function HeroSec() {
   return (
-    <div className="bg-offwhite relative lg:h-180 h-140">
+    <div className="bg-offwhite relative aspect-video w-screen">
+      {/* Image sits directly in the relative parent, outside Container */}
       <Image
-        src="/young-trendy-woman-model-outside-street-ed.jpg"
+        src="/homepage_decorations/young-trendy-woman-model-outside-street-ed.jpg"
         alt=""
         sizes="100vw"
         fill
+        unoptimized
         loading="eager"
-        className="w-full h-full object-cover absolute shadow-md "
+        className="object-cover"
       />
-      <Container className="rounded-3xl grid grid-cols-2 gap-12 h-full items-center absolute">
-        <div className=" flex text-white flex-col items-start justify-center gap-4 rounded-l-3xl py-12">
-          <div className="opacity-30 flex items-center gap-3">
+
+      {/* Container only wraps the text content */}
+      <Container className="relative z-10 grid grid-cols-2 gap-12 h-full items-center">
+        <div className="flex text-white flex-col items-start justify-center gap-4 py-12">
+          <div className="opacity-50 flex items-center gap-3">
             <span className="text-sm">FASHION & LIFESTYLE</span>
             <div className="w-8 h-0.5 bg-white"></div>
           </div>
-          <p className="lg:text-[4.5rem] text-6xl lg:leading-20">
+          <p className="text-6xl lg:text-8xl font-heading">
             Unleash Your Style, Shop the Latest Trends
           </p>
-          <p className="opacity-50">
+          <p className="opacity-50 text-sm font-light">
             Urban fashion reimagined scarefully crafted pieces designed to
             express who you are. Every thread tells a story crafted for the
             streets, designed for your identity.
           </p>
-          <button className="bg-white text-black px-6 py-3 rounded-full mt-8">
+          <button className="bg-white text-sm font-semibold text-black px-6 py-3 rounded-full mt-8">
             Shop Now
           </button>
         </div>

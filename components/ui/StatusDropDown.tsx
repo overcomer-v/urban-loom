@@ -6,14 +6,16 @@ export default function Dropdown({
   options,
   onSelect,
   label,
+  initialOption
 }: {
   label: string;
+  initialOption?:{ id?: string; label: string };
   options: { id?: string; label: string }[];
   onSelect: (value: { id?: string; label: string }) => void;
 }) {
   const [open, setOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
-  const dropDownRef = useRef(null);
+  const [selectedOption, setSelectedOption] = useState(initialOption?.label);
+  const dropDownRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleClose = (e: MouseEvent) => {
@@ -33,13 +35,13 @@ export default function Dropdown({
   }, []);
 
   return (
-    <div className="w-52 border-2 border-neutral-400 rounded-md p-2 px-4 gap-4  relative flex items-center">
-      <p className=" text-neutral-500 text-sm">{label}</p>
+    <div className="w-fit z-50 border-[1.5px] border-neutral-200 rounded-xl p-2 px-4 gap-4  relative flex items-center">
+      <p className=" text-neutral-500 text-sm text-nowrap">{label}</p>
 
       <button
         ref={dropDownRef}
         onClick={() => setOpen(!open)}
-        className="w-full flex justify-between text-sm items-center border-neutral-200 border px-3 py-1 rounded-sm"
+        className="w-full min-w-22 flex justify-between text-sm items-center border-neutral-200 border px-3 py-1 rounded-sm"
       >
         {selectedOption}
         <span>▼</span>

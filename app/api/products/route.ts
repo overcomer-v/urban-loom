@@ -3,65 +3,19 @@ import pool from "@/lib/db";
 import { EditableProduct } from "@/types/EditableProduct";
 import { UploadApiResponse } from "cloudinary";
 import { NextRequest, NextResponse } from "next/server";
+import { getProducts } from "@/lib/products";
+import { SortOption } from "@/types/Sorting";
 
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
 
-    const category_id = searchParams.get("category_id");
-    const sort = searchParams.get("sort");
+    const products = await getProducts(
+      searchParams.get("sort") as SortOption ?? undefined,
+      searchParams.get("category_id") ?? undefined
+    );
 
-    let orderBy = "";
-
-    switch (sort) {
-      case "price_asc":
-        orderBy = "ORDER BY products.price ASC";
-        break;
-
-      case "price_desc":
-        orderBy = "ORDER BY products.price DESC";
-        break;
-
-      case "latest":
-        orderBy = "ORDER BY products.created_at DESC";
-        break;
-
-      default:
-        orderBy = "ORDER BY products.id ASC";
-    }
-
-    const values: string[] = [];
-    let whereClause = "";
-
-    if (category_id) {
-      values.push(category_id);
-      whereClause = `WHERE categories.id = $${values.length}`;
-    }
-
-    const query = `
-      SELECT
-        products.id,
-        products.name,
-        product_images.image_url,
-        products.sex,
-        products.price,
-        products.description,
-        products.amount_in_stock,
-        categories.category
-      FROM products 
-      JOIN product_images
-        ON products.id = product_images.product_id
-      JOIN product_categories
-        ON products.id = product_categories.product_id
-      JOIN categories
-        ON categories.id = product_categories.category_id
-      ${whereClause}
-      ${orderBy}
-    `;
-
-    const results = await pool.query(query, values);
-
-    return NextResponse.json({ products: results.rows });
+    return NextResponse.json({ products });
   } catch (error) {
     console.error(error);
     return NextResponse.json(

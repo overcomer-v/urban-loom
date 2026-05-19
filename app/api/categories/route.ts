@@ -1,12 +1,13 @@
+import { getCategories } from "@/lib/categories";
 import pool from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
   console.log("read");
   try {
-    const result = await pool.query(`SELECT * FROM categories`);
+    const result = await getCategories();
     console.log(result);
-    return NextResponse.json({ categories: result.rows });
+    return NextResponse.json({ categories: result });
   } catch (error) {
     console.error(error);
     return NextResponse.json(

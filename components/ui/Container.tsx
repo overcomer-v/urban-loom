@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export default function Container({
   children,
   className,
@@ -6,7 +8,20 @@ export default function Container({
   children: React.ReactNode;
 }) {
   return (
-    <div className={`xl:px-28 px-8 ${className || ""}`} {...props}>
+    <div className={`xl:px-28 px-8 max-w-400 mx-auto ${className || ""}`} {...props}>
+      {children}
+    </div>
+  );
+}
+
+interface ContainerProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function FullContainer({ children, className = "" }: ContainerProps) {
+  return (
+    <div className={`max-w-400 mx-auto w-full xl:px-28 px-8  ${className}`}>
       {children}
     </div>
   );
