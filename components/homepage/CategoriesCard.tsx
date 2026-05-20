@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function CategoriesCard({ label, img }: { label: string; img: string }) {
   return (
-    <div className="relative h-90 rounded overflow-hidden">
+    <div className="relative h-90 rounded overflow-hidden will-change-transform">
       <Image
         src={img}
         alt=""

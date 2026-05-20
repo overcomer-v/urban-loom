@@ -6,7 +6,7 @@ export function BaseProductCard({ product }: { product: Product }) {
   return (
     <Link href={`/product-overview/${product.id}`}>
       {" "}
-      <div className="flex flex-col gap-4 items-start shadow-md hover:shadow-2xl p-4 group transition-all duration-300">
+      <div className="flex flex-col gap-4 will-change-transform items-start shadow-md hover:shadow-2xl p-4 group transition-all duration-300">
         <div className="w-full bg-neutral-100 relative aspect-square rounded overflow-hidden">
           <Image
             src={product.images[0]}
