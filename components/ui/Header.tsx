@@ -1,11 +1,13 @@
-import { ChevronDown, Search } from "lucide-react";
+import { ChevronDown, Search, User2, UserCircle, UserIcon } from "lucide-react";
 import Link from "next/link";
 import Container from "./Container";
 import Image from "next/image";
 import { getCategories } from "@/lib/categories";
 import { Categories } from "@/types/Categories";
+import { useAuth } from "@/context/AuthContext";
+import { User } from "@/types/User";
 
-export default function Header() {
+export default function Header({ user }: { user: User }) {
   return (
     <header className="bg-offwhite py-6 border-b border-neutral-300">
       <Container className="flex items-center justify-between">
@@ -25,20 +27,40 @@ export default function Header() {
 
         <div className="flex items-center gap-8 text-xs font-semibold">
           <Link href="/">HOME</Link>
-          <Categories />
+          <CategoriesSec />
           <Link href="/about">ABOUT US</Link>
           <Link href="/contact">CONTACT US</Link>
         </div>
 
-        <Link href={"/product-query"}>
-          <Search className="h-10 w-10 p-2 rounded-full hover:bg-neutral-300" />
-        </Link>
+        <div className="flex items-center gap-4">
+          {" "}
+          <Link href={"/product-query"}>
+            <Search className="h-10 w-10 p-2 rounded-full hover:bg-neutral-300" />
+          </Link>
+          {user ? (
+            <>
+              <div className="flex items-center gap-2">
+                <User2 className="bg-black text-white h-8 w-8 p-1 rounded-full" />
+                <span className="font-semibold text-wrap">{user.name}</span>
+              </div>
+            </>
+          ) : (
+            <>
+              <button className="bg-neutral-300 px-6 py-3 rounded-4xl">
+                Log In
+              </button>
+              <Link href={"/signup"} className="bg-black text-white px-6 py-3 rounded-4xl">
+                Sign Up
+              </Link>
+            </>
+          )}
+        </div>
       </Container>
     </header>
   );
 }
 
-async function Categories() {
+async function CategoriesSec() {
   const categories: Categories[] = await getCategories();
 
   return (
