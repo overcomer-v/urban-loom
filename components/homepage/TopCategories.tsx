@@ -23,7 +23,7 @@ export default function TopCategories({
   categories: Categories[];
 }) {
   return (
-    <Container className="pt-20 w-full will-change-transform">
+    <Container className="pt-20 w-full">
 
         <div className="grid grid-cols-[repeat(auto-fit,minmax(210px,1fr))] gap-2  pb-6 overflow-scroll no-scrollbar">
           {categories.map((category) => (

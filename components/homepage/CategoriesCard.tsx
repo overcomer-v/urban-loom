@@ -3,13 +3,11 @@ import Image from "next/image";
 
 export default function CategoriesCard({ label, img }: { label: string; img: string }) {
   return (
-    <div className="relative h-90 rounded overflow-hidden will-change-transform">
+    <div className="relative h-90 rounded overflow-hidden">
       <Image
         src={img}
         alt=""
         fill
-        priority
-        unoptimized
         className="object-cover absolute "
         loading="eager"
       />

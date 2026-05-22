@@ -25,7 +25,7 @@ export default async function Home() {
 
 function SubHeroOne() {
   return (
-    <div className="py-12 my-12 bg-neutral-800 will-change-transform">
+    <div className="py-12 my-12 bg-neutral-800 ">
       <Container className="grid grid-cols-2 justify-between w-full">
         <div>
           <Image
@@ -59,14 +59,13 @@ function SubHeroOne() {
 
 function HeroSec() {
   return (
-    <div className="bg-offwhite relative aspect-video w-screen will-change-transform">
+    <div className="bg-offwhite relative aspect-video w-screen ">
       {/* Image sits directly in the relative parent, outside Container */}
       <Image
         src="/homepage_decorations/young-trendy-woman-model-outside-street-ed.jpg"
         alt=""
         sizes="100vw"
         fill
-        unoptimized
         loading="eager"
         className="object-cover"
       />
