@@ -20,7 +20,7 @@ export default async function Shop({
 
   return (
     <div>
-      <Container className="py-8">
+      <Container className="py-3 md:py-8 ">
        <div className="mt-8">
          <Subtitle titleClassName="text-xl" label={type.toUpperCase()} />
        </div>

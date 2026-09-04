@@ -8,7 +8,7 @@ export default function Container({
   children: React.ReactNode;
 }) {
   return (
-    <div className={`xl:px-28 px-8 max-w-400 mx-auto ${className || ""}`} {...props}>
+    <div className={`xl:px-28 md:px-8 px-2 max-w-400 mx-auto ${className || ""}`} {...props}>
       {children}
     </div>
   );

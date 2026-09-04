@@ -1,22 +1,15 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Cormorant_Garamond, Inter } from "next/font/google";
+import {
+  Cormorant_Garamond,
+  Inter,
+} from "next/font/google";
+
 import "./globals.css";
-import Header from "@/components/ui/Header";
+
 import Footer from "@/components/ui/Footer";
 import { AuthProvider } from "@/context/AuthContext";
 import { getCurrentUser } from "@/lib/auth";
-
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   weight: ["300", "400", "500", "600", "700"],
-//   style: ["normal"],
-//   subsets: ["latin"],
-// });
+import MobileNavigation from "@/components/ui/MobileNavigation";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -40,8 +33,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   const user = await getCurrentUser();
+
   return (
     <html
       lang="en"
@@ -49,11 +42,14 @@ export default async function RootLayout({
     >
       <body className="font-body min-h-screen">
         <AuthProvider user={user}>
-          <div className="min-h-screen flex flex-col justify-between  w-full m-auto">
-            <div className="">
-              <Header user={user} />
+          <div className="min-h-screen flex flex-col justify-between w-full m-auto">
+            <div>
+              <MobileNavigation user={user} />
             </div>
-            <div className="flex m-auto">{children}</div>
+
+            <div className="flex m-auto">
+              {children}
+            </div>
 
             <Footer />
           </div>

@@ -35,7 +35,7 @@ export default function Dropdown({
   }, []);
 
   return (
-    <div className="w-fit z-50 border-[1.5px] border-neutral-200 rounded-xl p-2 px-4 gap-4  relative flex items-center">
+    <div className="w-fit z-50 border-[1.5px] border-neutral-200 rounded-md p-2 md:px-4 px-3 gap-4  relative flex items-center">
       <p className=" text-neutral-500 text-sm text-nowrap">{label}</p>
 
       <button

@@ -33,8 +33,8 @@ export default async function ProductsQuery({
 
   return (
     <div>
-      <Container className="py-8">
-        <div className="flex justify-between items-center">
+      <Container className="py-3 md:py-8 ">
+        <div className=" flex md:flex-row flex-col-reverse justify-between items-center">
           <Subtitle label={query ? `Results for "${query}"` : ""} />
           <SearchBox/>
         </div>

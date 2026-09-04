@@ -13,7 +13,7 @@ export default function Subtitle({
 }) {
   return (
     <div className="flex items-center justify-between w-full">
-      <h2 className={`text-3xl font-semibold font-heading ${titleClassName}`}>
+      <h2 className={`md:text-3xl text-2xl font-semibold font-heading ${titleClassName}`}>
         {label}
       </h2>
       {showButton && (

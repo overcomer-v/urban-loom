@@ -9,7 +9,7 @@ import { SORT_OPTIONS } from "@/constants/Sorting-constants";
 
 export default function NewArrivals({ products }: { products: Product[] }) {
   return (
-    <section className="my-16">
+    <section className="">
       <Container className="space-y-6">
         <Subtitle
           label="Top Picks"

@@ -30,7 +30,7 @@ export function SecondaryProductCard({ product }: { product: Product }) {
   return (
     <Link href={`/product-overview/${product.id}`}>
       <div className="flex gap-4 items-start h-48 shadow-md p-4 rounded-lg">
-        <div className="h-40 w-40 shrink-0 bg-gray-400 relative rounded-lg overflow-hidden">
+        <div className="md:h-40 md:w-40 h-36 w-36 shrink-0 bg-gray-400 relative rounded-lg overflow-hidden">
           <Image
             src={product.images[0]}
             alt=""
@@ -39,13 +39,13 @@ export function SecondaryProductCard({ product }: { product: Product }) {
             className="object-cover"
           />
         </div>
-        <div className="flex flex-col gap-6 h-full py-3">
+        <div className="flex flex-col gap-2 md:gap-6 h-full py-3">
           <div>
             <div>
-              <p className="opacity-40 text-xs">{product.sex.toUpperCase()}</p>
-              <p className="font-bold text-lg font-heading">{product.name}</p>
+              <p className="opacity-40 text-xs mb-1.5">{product.sex.toUpperCase()}</p>
+              <p className="font-bold text-lg leading-5 md:leading-normal font-heading">{product.name}</p>
             </div>
-            <p className="text-xs mt-2 opacity-50">
+            <p className="text-xs mt-2 opacity-50 line-clamp-2">
               {product.description}
             </p>
           </div>

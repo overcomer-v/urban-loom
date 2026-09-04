@@ -48,9 +48,18 @@ export function ItemsView({ products }: { products: Product[] }) {
   }
   return (
     <div>
-      <div className="my-3 flex items-center justify-between ">
-        <LayoutSettings layout={layout} setLayout={setLayout} />
-        <div className="flex items-center gap-3">
+      <div className="my-3 gap-4 flex md:flex-row flex-col-reverse items-center justify-between ">
+       <div className="flex items-center justify-between w-full">
+         <LayoutSettings layout={layout} setLayout={setLayout} />
+         <button
+            onClick={clearFilters}
+            className="bg-black text-white rounded-md text-nowrap py-2 px-3 flex gap-2 md:hidden items-center"
+          >
+            <X />
+            <p className="text-sm">Clear Filters</p>
+          </button>
+       </div>
+        <div className="flex items-center md:gap-3 md:justify-normal md:w-fit justify-between w-full">
           <Dropdown
             initialOption={{ label: currentSort?.label ?? "" }}
             label="SortBy"
@@ -63,7 +72,7 @@ export function ItemsView({ products }: { products: Product[] }) {
           />
           <Dropdown
             initialOption={{ label: currentSex }}
-            label="Filter by sex"
+            label="Sex"
             options={sexDropdownOptions.map((item) => {
               return { label: item };
             })}
@@ -72,9 +81,9 @@ export function ItemsView({ products }: { products: Product[] }) {
             }}
           />
 
-          <button
+         <button
             onClick={clearFilters}
-            className="bg-black text-white rounded-md py-3 px-5 flex gap-2 items-center"
+            className="bg-black text-white hidden md:flex rounded-md text-nowrap py-3 px-5 gap-2 items-center"
           >
             <X />
             <p className="text-sm">Clear Filters</p>

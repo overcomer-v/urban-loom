@@ -11,7 +11,7 @@ export default function FeaturedProducts({
   products: Product[];
 }) {
   return (
-    <section className="my-12">
+    <section className="">
       <Container className="space-y-3">
         <Subtitle label="Featured Products" showButton onNavLink={`/shop?type=Featured`} />
         <GridContainer>

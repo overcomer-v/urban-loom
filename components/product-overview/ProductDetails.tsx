@@ -32,7 +32,6 @@ export function ProductDetails({ product }: { product: Product }) {
             src={product.images[0]}
             alt=""
             fill
-            sizes="w-200"
             loading="eager"
             className="object-cover"
           />
@@ -66,7 +65,7 @@ export function ProductDetails({ product }: { product: Product }) {
 
         {/* {Order Buttons} */}
 
-        <div className="flex items-center gap-3 justify-start mt-auto">
+        <div className="flex items-center gap-3 justify-start md:mt-auto mt-6">
           <button className="rounded-full px-8 py-5 w-fit border gap-3 border-neutral-300 flex items-center">
             <p>Add to Cart</p>
             <ShoppingCart />
@@ -79,7 +78,9 @@ export function ProductDetails({ product }: { product: Product }) {
       </div>
      
     </section>
-     <MoreToLike categoryId={product.category_id} />
+   <div className="overflow-x-scroll no-scrollbar w-[92vw]">
+      <MoreToLike categoryId={product.category_id} />
+   </div>
     </div>
    
   );
@@ -93,8 +94,8 @@ function ShippingSection() {
       <div className="flex items-center justify-between">
         {" "}
         <div className="flex items-center gap-3">
-          <div className="flex justify-center items-center bg-neutral-800 h-12 w-12 rounded-full">
-            <CalendarFold stroke="white" />
+          <div className="flex justify-center items-center bg-neutral-100 h-12 w-12 rounded-full">
+            <CalendarFold stroke="#00000080" />
           </div>
           <div>
             <span className="opacity-50 text-xs">Delivery Time</span>
@@ -102,8 +103,8 @@ function ShippingSection() {
           </div>
         </div>
         <div className="flex items-center gap-3">
-          <div className="flex justify-center items-center bg-neutral-800 h-12 w-12 rounded-full">
-            <Package stroke="white" />
+          <div className="flex justify-center items-center bg-neutral-100 h-12 w-12 rounded-full">
+            <Package stroke="#00000080" />
           </div>
           <div>
             <span className="opacity-50 text-xs">Package</span>
@@ -136,9 +137,9 @@ function MoreToLike({ categoryId }: { categoryId: string }) {
   }, [categoryId]);
 
   return (
-    <div className="w-full space-y-6">
+    <div className="w-full space-y-12 my-14">
       <Subtitle label="You Might Also Like" />
-      <div className="flex items-start gap-2 overflow-x-scroll no-scrollbar">
+      <div className="flex items-start gap-2 overflow-x-scroll no-scrollbar w-[92vw]">
         {moreProducts.map((item) => (
           <div key={item.id} className="w-60 shrink-0">
             <BaseProductCard  product={item} />
