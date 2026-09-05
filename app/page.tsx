@@ -60,7 +60,7 @@ function SubHeroOne() {
 
 function HeroSec() {
   return (
-    <div className=" relative w-full md:h-screen h-80">
+    <div className=" relative w-full h-[50vh] md:h-[70vh] lg:h-[90vh]">
       {/* Image sits directly in the relative parent, outside Container */}
       <Image
         src="/homepage_decorations/young-trendy-woman-model-outside-street-ed.jpg"
@@ -68,7 +68,7 @@ function HeroSec() {
         width={2000}
         height={2000}
         loading="eager"
-        className="object-cover w-full h-full
+        className="object-cover object-right w-full h-full
         "
       />
 
@@ -79,7 +79,7 @@ function HeroSec() {
             <span className="md:text-sm text-xs">FASHION & LIFESTYLE</span>
             <div className="w-8 h-0.5 bg-white"></div>
           </div>
-          <p className="text-3xl md:text-6xl  lg:text-7xl font-heading">
+          <p className="text-4xl md:text-6xl  lg:text-7xl font-heading">
             Unleash Your Style, Shop the Latest Trends
           </p>
           <p className="opacity-50  text-[0.6rem] hidden md:flex md:text-sm font-light w-full">

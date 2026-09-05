@@ -54,7 +54,10 @@ export default function Header({
       <Container className="flex items-center justify-between">
 
         <div className="flex items-center gap-3">
-          <Menu className="md:hidden" onClick={onMenuClick} />
+          <Menu className="md:hidden flex" onClick={()=>{
+            alert("Pressed");
+            onMenuClick();
+          }} />
 
           <Link href="/">
             <Image
@@ -97,7 +100,7 @@ export default function Header({
               </span>
             </div>
           ) : (
-            <div className="hidden md:flex">
+            <div className="hidden md:flex gap-3">
               <button className="bg-neutral-300 px-5 py-2 text-xs rounded-4xl text-nowrap">
                 Log In
               </button>
