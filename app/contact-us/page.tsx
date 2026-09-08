@@ -7,17 +7,17 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen w-full bg-white text-neutral-900">
       {/* Header */}
-      <section className="border-b border-neutral-200 px-6 py-16 sm:px-10 lg:px-16">
+      <section className="border-b border-neutral-200 bg-neutral-900 px-6 py-16 sm:px-10 lg:px-16">
         <div className="mx-auto max-w-7xl">
           <p className="mb-4 text-sm font-medium uppercase tracking-[0.25em] text-neutral-500">
             Urban Loom
           </p>
 
-          <h1 className="max-w-3xl text-4xl font-medium font-heading tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="max-w-3xl text-4xl text-white font-medium font-heading tracking-tight sm:text-5xl lg:text-6xl">
             We’d love to hear from you.
           </h1>
 
-          <p className="mt-6 max-w-2xl text-sm leading-7 text-neutral-600 md:text-base">
+          <p className="mt-6 max-w-2xl text-sm leading-7 text-neutral-400 md:text-base">
             Have a question about an order, a product, or anything else? Reach
             out to us and our team will be happy to help.
           </p>
