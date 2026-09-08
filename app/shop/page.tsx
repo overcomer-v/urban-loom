@@ -1,29 +1,55 @@
 import { ItemsView } from "@/components/categories-itemsview/ItemsView";
+import { SearchBox } from "@/components/product-query/SearchBox";
 import Container from "@/components/ui/Container";
 import Subtitle from "@/components/ui/Subtitle";
 import { getProducts } from "@/lib/products";
 import { Product, ProductSexType } from "@/types/products";
 import { SortOption } from "@/types/Sorting";
 
-export default async function Shop({
+export default async function ProductsQuery({
   searchParams,
 }: {
-  searchParams: Promise<{ sort?: SortOption; sex?: string; type: string }>;
+  //   params: Promise<{ id: string }>;
+  searchParams: Promise<{
+    sort?: SortOption;
+    sex?: string;
+    name?: string;
+    query: string;
+    mode:"query"|""
+  }>;
 }) {
-  const { sort = "" as SortOption, sex = "", type } = await searchParams;
+  const {
+    sort = "" as SortOption,
+    sex = "",
+    query = "",
+    mode = "",
+  } = await searchParams;
 
-  const products: Product[] = await getProducts(sort, undefined, {
-    sex: sex as ProductSexType,
-  });
+  const products: Product[] = await getProducts(
+    sort,
+    undefined,
+    {
+      sex: sex as ProductSexType,
+    },
+    query,
+  );
 
   console.log("Server Triggered:", sort, sex);
 
   return (
-    <div>
+    <div className="w-full">
       <Container className="py-3 md:py-8 ">
-       <div className="mt-8">
-         <Subtitle titleClassName="text-xl" label={type.toUpperCase()} />
-       </div>
+        <div className=" flex md:flex-row flex-col-reverse justify-between items-center">
+          {
+            (mode !== "query" ? (
+              <Subtitle titleClassName="text-xl" label={"Shop"} />
+            ) : (
+              <Subtitle label={query ? `Results for "${query}"` : ""} />
+            ))
+          }
+          <SearchBox />
+        </div>
+
         <ItemsView products={products} />
       </Container>
     </div>

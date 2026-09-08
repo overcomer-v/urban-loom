@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  ChevronDown,
   Menu,
   Search,
   User2,
@@ -50,12 +49,11 @@ export default function Header({
 
 
   return (
-    <header className="bg-offwhite py-4 border-b border-neutral-300">
+    <header className="bg-offwhite py-3 border-b border-neutral-300">
       <Container className="flex items-center justify-between">
 
         <div className="flex items-center gap-3">
           <Menu className="md:hidden flex" onClick={()=>{
-            alert("Pressed");
             onMenuClick();
           }} />
 
@@ -88,22 +86,22 @@ export default function Header({
         </div>
 
         <div className="flex items-center gap-4">
-          <Link href="/product-query">
+          <Link href="/shop?mode=query">
             <Search className="h-10 w-10 p-2 rounded-full hover:bg-neutral-300" />
           </Link>
 
           {user ? (
             <div className="flex items-center gap-2">
-              <User2 className="bg-black text-white h-8 w-8 p-1 rounded-full" />
-              <span className="font-semibold text-wrap">
-                {user.name}
+              <User2 className="bg-black text-white h-7 w-7 p-1 rounded-full" />
+              <span className="font-medium text-wrap">
+                {user.name.split(" ",1)}
               </span>
             </div>
           ) : (
             <div className="hidden md:flex gap-3">
-              <button className="bg-neutral-300 px-5 py-2 text-xs rounded-4xl text-nowrap">
+              <Link href={"/login"} className="bg-neutral-300 px-5 py-2 text-xs rounded-4xl text-nowrap">
                 Log In
-              </button>
+              </Link>
 
               <Link
                 href="/signup"

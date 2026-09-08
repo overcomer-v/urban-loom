@@ -17,22 +17,30 @@ export function SearchBox() {
   }
 
   return (
-    <div className="flex items-center h-12 rounded-xl border-[1.5px] border-neutral-300">
-      <input
-        className="h-full w-60 px-4"
-        type="text"
-        value={queryText}
-        onChange={(e) => {
-          setQuerytext(e.target.value);
+    <div className="flex items-center ">
+      <form
+        onSubmit={() => {
+          handleQuery(queryText);
         }}
-      />
+      >
+        {" "}
+        <input
+          className="w-70 px-4 h-10 text-sm rounded-l-md border outline-0 border-r-0 border-neutral-300"
+          type="text"
+          value={queryText}
+          onChange={(e) => {
+            setQuerytext(e.target.value);
+          }}
+        />
+      </form>
+
       <button
         onClick={() => {
           handleQuery(queryText);
         }}
-        className="bg-black text-white h-full rounded-xl aspect-square place-items-center"
+        className="bg-black text-white h-10 w-10  rounded-r-md aspect-square place-items-center"
       >
-        <Search className="" />
+        <Search className="" size={20} />
       </button>
     </div>
   );

@@ -42,12 +42,12 @@ export default async function RootLayout({
     >
       <body className="font-body min-h-screen">
         <AuthProvider user={user}>
-          <div className="min-h-screen flex flex-col justify-between w-full m-auto">
+          <div className="min-h-screen flex flex-col justify-between w-full">
             <div>
               <MobileNavigation user={user} />
             </div>
 
-            <div className="flex m-auto">
+            <div className="flex">
               {children}
             </div>
 

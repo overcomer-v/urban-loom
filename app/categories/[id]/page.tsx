@@ -22,8 +22,8 @@ export default async function CategoriesItemsView({
   console.log("Server Triggered:", sort,sex);
 
   return (
-    <div>
-      <Container className="py-8">
+    <div className="full">
+      <Container className="py-8 w-screen">
         <Subtitle label={name?.toUpperCase() ?? ""} />
         <ItemsView products={products} />
       </Container>

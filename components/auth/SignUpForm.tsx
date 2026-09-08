@@ -84,7 +84,7 @@ export default function SignUpForm() {
         return;
       }
 
-      router.push("/dashboard");
+      router.push("/");
     } catch {
       setServerError("Network error. Please try again.");
     } finally {
@@ -93,21 +93,21 @@ export default function SignUpForm() {
   }
 
   const inputClass =
-  "peer w-full border border-gray-300 h-16 rounded-lg px-4 pt-6 pb-2 outline-none focus:border-black transition";
+  "peer w-full border border-gray-300 h-13 text-sm rounded-lg px-4 pt-6 pb-2 outline-none focus:border-black transition";
 
 const labelClass =
   `absolute left-4 top-2 text-sm text-gray-500 transition-all
-   peer-placeholder-shown:top-5
-   peer-placeholder-shown:text-base 
+   peer-placeholder-shown:top-4
+   peer-placeholder-shown:text-sm
    peer-placeholder-shown:text-gray-400
-   peer-focus:top-2 
-   peer-focus:text-sm`;
+   peer-focus:top-2
+   peer-focus:text-xs`;
 
 const buttonClass =
   "w-full bg-black text-white py-3 rounded-lg hover:opacity-90 transition disabled:opacity-50";
 
   return (
-  <form onSubmit={handleSubmit} noValidate className="space-y-5 w-100">
+  <form onSubmit={handleSubmit} noValidate className="space-y-5 w-100 m-auto">
   {serverError && (
     <p className="text-red-500 text-sm">{serverError}</p>
   )}

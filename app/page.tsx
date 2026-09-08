@@ -6,6 +6,7 @@ import Image from "next/image";
 import { getProducts } from "@/lib/products";
 import { getCategories } from "@/lib/categories";
 import { ShoppingBag } from "lucide-react";
+import Link from "next/link";
 
 //
 export default async function Home() {
@@ -49,9 +50,9 @@ function SubHeroOne() {
             express who you are. Every thread tells a story crafted for the
             streets, designed for your identity.
           </p>
-          <button className="border-2 hover:bg-white hover:text-black text-sm font-semibold border-white px-8 py-4 w-fit rounded-full mt-3">
+          <Link href={"/shop"} className="border-2 hover:bg-white hover:text-black text-sm font-semibold border-white px-8 py-4 w-fit rounded-full mt-3">
             Shop Now
-          </button>
+          </Link>
         </div>
       </Container>
     </div>
@@ -87,10 +88,10 @@ function HeroSec() {
             express who you are. Every thread tells a story crafted for the
             streets, designed for your identity.
           </p>
-          <button className="bg-white text-sm flex items-center gap-1.5 font-semibold text-black px-6 py-4 rounded-full mt-6 md:mt-8">
+          <Link href={"/shop"} className="bg-white text-sm flex items-center gap-1.5 font-semibold text-black px-6 py-4 rounded-full mt-6 md:mt-8">
             <p>Shop Now</p>
             <ShoppingBag  size={20}/>
-          </button>
+          </Link>
         </div>
       </Container>
     </div>

@@ -12,14 +12,17 @@ export default function ProductUpload() {
   const [categories, setCategories] = useState<Categories[]>([]);
   const [uploadedImage, setUploadedImage] = useState<File>();
   const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [selectedSex, setSelectedSex] = useState<string>("");
+  const [selectedCategories, setSelectedCategories] = useState<string>("");
+
   const [productInfo, setProductInfo] = useState<EditableProduct>({
     id: "",
     name: "",
     description: "",
-    category:"",
-    images:[],
+    category: "",
+    images: [],
     price: 0,
-    sizes:[],
+    sizes: [],
     amount_in_stock: 0,
     category_id: "",
     sex: "unisex",
@@ -126,6 +129,8 @@ export default function ProductUpload() {
           <div className="flex gap-4">
             <Dropdown
               label="Category"
+              selectedOption={selectedCategories}
+              setSelectedOption={setSelectedCategories}
               options={categoriesOpt}
               onSelect={(value) => {
                 setProductInfo((prev) => {
@@ -135,6 +140,8 @@ export default function ProductUpload() {
             />
             <Dropdown
               label="Sex"
+              selectedOption={selectedSex}
+              setSelectedOption={setSelectedCategories}
               options={SEX_OPTIONS.map((item) => {
                 return { label: item };
               })}
