@@ -95,7 +95,7 @@ export default function MobileNav({ isOpen, onClose, user }: MobileNavProps) {
         />
 
         <Link href="/about">ABOUT US</Link>
-        <Link href="/contact">CONTACT US</Link>
+        <Link href="/contact-us">CONTACT US</Link>
         {user ? (
           <div className="flex items-center gap-2">
             <User2 className="bg-black text-white h-8 w-8 p-1 rounded-full" />
@@ -103,9 +103,9 @@ export default function MobileNav({ isOpen, onClose, user }: MobileNavProps) {
           </div>
         ) : (
           <div className="flex items-center gap-4">
-            <button className="bg-neutral-300 px-5 py-2 text-xs rounded-4xl text-nowrap">
+            <Link href={"/signin"}className="bg-neutral-300 px-5 py-2 text-xs rounded-4xl text-nowrap">
               Log In
-            </button>
+            </Link>
 
             <Link
               href="/signup"

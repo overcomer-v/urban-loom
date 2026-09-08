@@ -6,10 +6,10 @@ export default async function AboutUs() {
   return (
     <div className="flex flex-col py-24 gap-24">
       {" "}
-      <Container className="grid grid-cols-2 gap-12 items-center">
+      <Container className="grid lg:grid-cols-2 gap-8 items-center justify-center">
         <div className="space-y-4 ">
           <h1 className="text-5xl font-bold font-heading">ABOUT US</h1>
-          <p className="opacity-60 text-sm">
+          <p className="opacity-60 text-sm w-[80%]">
             At Urban Loom, we believe fashion is more than clothing — it’s
             self-expression. We create modern streetwear and timeless essentials
             designed for confidence and comfort. Our goal is to blend style,
@@ -28,7 +28,7 @@ export default async function AboutUs() {
           <div className="absolute -bottom-10 -right-10 w-full h-full bg-offwhite rounded-lg" />
 
           {/* Image */}
-          <div className="relative rounded-lg w-full h-full overflow-hidden">
+          <div className="relative rounded-lg w-full h-full  overflow-hidden">
             <Image
               fill
               className="absolute object-cover"
@@ -55,7 +55,7 @@ export default async function AboutUs() {
           src="/about/hunter-newton-YjxcPMb7JGw-unsplash-balck.jpg"
         />{" "}
       </Container> */}
-      <Container className="grid grid-cols-2 mt-12 items-center">
+      <Container className="grid lg:grid-cols-2 mt-12 items-center">
         <div className="relative w-120 h-120">
           {/* Offset block */}
           <div className="absolute -bottom-10 -right-10 w-full h-full bg-offwhite rounded-lg" />

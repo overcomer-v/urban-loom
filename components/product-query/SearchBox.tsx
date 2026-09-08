@@ -19,7 +19,8 @@ export function SearchBox() {
   return (
     <div className="flex items-center ">
       <form
-        onSubmit={() => {
+        onSubmit={(e) => {
+          e.preventDefault();
           handleQuery(queryText);
         }}
       >

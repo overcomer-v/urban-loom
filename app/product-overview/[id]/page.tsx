@@ -12,7 +12,7 @@ export default async function ProductOverview({
 
   const product: Product = await getProduct(id);
   return (
-    <Container className="pb-20">
+    <Container className="pb-20 w-full">
       <ProductDetails product={product} />
     </Container>
   );

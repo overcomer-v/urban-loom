@@ -22,67 +22,71 @@ export function ProductDetails({ product }: { product: Product }) {
 
   console.log(product);
   return (
-    <div> <section className="grid md:grid-cols-[55%_40%] lg:grid-cols-2 gap-16 my-12 w-full">
-      <div className="flex flex-col">
-        <span className="opacity-40 text-xs mb-4">
-          {product?.category.toUpperCase()}
-        </span>
-        <div className="relative w-full aspect-square overflow-hidden rounded-xl bg-neutral-100">
-          <Image
-            src={product.images[0]}
-            alt=""
-            fill
-            loading="eager"
-            className="object-cover"
+    <div>
+      {" "}
+      <section className="grid md:grid-cols-[55%_40%] lg:grid-cols-2 gap-16 my-12 ">
+        <div className="flex flex-col ">
+          <span className="opacity-40 text-xs mb-4">
+            {product?.category.toUpperCase()}
+          </span>
+          <div className="relative w-full aspect-square overflow-hidden rounded-xl bg-neutral-100">
+            <Image
+              src={product.images[0]}
+              alt=""
+              fill
+              loading="eager"
+              className="object-cover"
+            />
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <span className="opacity-40 text-xs">
+            {product?.sex.toUpperCase()}
+          </span>
+          <h2 className="text-3xl font-semibold font-heading">
+            {product.name}
+          </h2>
+          <p className="font-bold text-xl">${product?.price}</p>
+          {product?.sizes && (
+            <SizePicker
+              sizes={product?.sizes}
+              selectedSize={selectedSize}
+              onSizeSelected={(size) => {
+                setSelectedSize(size);
+              }}
+            />
+          )}
+          <QuantitySelector
+            stock={selectedSize.stock}
+            quantity={quantitySelected}
+            setQuantitySelected={setQuantitySelected}
           />
+
+          <div className="p-4 mt-3 border border-neutral-200 rounded-2xl space-y-2">
+            <h3 className=" font-semibold font-body">Description & Fit</h3>
+            <p className="text-sm opacity-60">{product.description}</p>
+          </div>
+          <ShippingSection />
+
+          {/* {Order Buttons} */}
+
+          <div className="flex items-center gap-3 justify-start md:mt-auto mt-6">
+            <button className="rounded-full px-8 py-5 w-fit border gap-3 border-neutral-300 flex items-center">
+              <p>Add to Cart</p>
+              <ShoppingCart />
+            </button>
+            <button className="rounded-full px-8 py-5 w-fit gap-3 bg-black text-white flex items-center">
+              <p>Buy Now</p>
+              <ArrowRight />
+            </button>
+          </div>
         </div>
+      </section>
+      <div className="overflow-x-scroll no-scrollbar">
+        <MoreToLike categoryId={product.category_id} />
       </div>
-
-      <div className="flex flex-col gap-2">
-        <span className="opacity-40 text-xs">{product?.sex.toUpperCase()}</span>
-        <h2 className="text-3xl font-semibold font-heading">{product.name}</h2>
-        <p className="font-bold text-xl">${product?.price}</p>
-        {product?.sizes && (
-          <SizePicker
-            sizes={product?.sizes}
-            selectedSize={selectedSize}
-            onSizeSelected={(size) => {
-              setSelectedSize(size);
-            }}
-          />
-        )}
-        <QuantitySelector
-          stock={selectedSize.stock}
-          quantity={quantitySelected}
-          setQuantitySelected={setQuantitySelected}
-        />
-
-        <div className="p-4 mt-3 border border-neutral-200 rounded-2xl space-y-2">
-          <h3 className=" font-semibold font-body">Description & Fit</h3>
-          <p className="text-sm opacity-60">{product.description}</p>
-        </div>
-        <ShippingSection />
-
-        {/* {Order Buttons} */}
-
-        <div className="flex items-center gap-3 justify-start md:mt-auto mt-6">
-          <button className="rounded-full px-8 py-5 w-fit border gap-3 border-neutral-300 flex items-center">
-            <p>Add to Cart</p>
-            <ShoppingCart />
-          </button>
-          <button className="rounded-full px-8 py-5 w-fit gap-3 bg-black text-white flex items-center">
-            <p>Buy Now</p>
-            <ArrowRight />
-          </button>
-        </div>
-      </div>
-     
-    </section>
-   <div className="overflow-x-scroll no-scrollbar w-[92vw]">
-      <MoreToLike categoryId={product.category_id} />
-   </div>
     </div>
-   
   );
 }
 
@@ -142,7 +146,7 @@ function MoreToLike({ categoryId }: { categoryId: string }) {
       <div className="flex items-start gap-2 overflow-x-scroll no-scrollbar w-[92vw]">
         {moreProducts.map((item) => (
           <div key={item.id} className="w-60 shrink-0">
-            <BaseProductCard  product={item} />
+            <BaseProductCard product={item} />
           </div>
         ))}
       </div>
@@ -160,7 +164,7 @@ function QuantitySelector({
   setQuantitySelected: (quantity: number) => void;
 }) {
   return (
-    <div className="flex items-center border h-12 gap-4 mt-4 pl-4 w-fit rounded-xl border-neutral-300 [&_button]:border-neutral-300 ">
+    <div className="flex items-center border h-12 gap-4 mt-4 pl-4 w-fit rounded-xl border-neutral-300 overflow-hidden [&_button]:border-neutral-300 ">
       <span>Quantity</span>
 
       <button

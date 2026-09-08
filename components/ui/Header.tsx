@@ -82,7 +82,7 @@ export default function Header({
           />
 
           <Link href="/about">ABOUT US</Link>
-          <Link href="/contact">CONTACT US</Link>
+          <Link href="/contact-us">CONTACT US</Link>
         </div>
 
         <div className="flex items-center gap-4">
@@ -99,7 +99,7 @@ export default function Header({
             </div>
           ) : (
             <div className="hidden md:flex gap-3">
-              <Link href={"/login"} className="bg-neutral-300 px-5 py-2 text-xs rounded-4xl text-nowrap">
+              <Link href={"/signin"} className="bg-neutral-300 px-5 py-2 text-xs rounded-4xl text-nowrap">
                 Log In
               </Link>
 
