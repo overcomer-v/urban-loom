@@ -13,12 +13,12 @@ export default function CategoriesCard({ label, img }: { label: string; img: str
       />
       <div className="w-full h-full absolute bg-black opacity-30"></div>
       <Images className="absolute top-3 right-3" stroke="white" />
-      <div className="flex items-center hover:bg-white hover:text-black text-white gap-3 absolute bottom-8 md:left-8 left-2 border-2 py-2 px-4 border-white rounded-full">
+      <div className="flex items-center group hover:bg-white hover:text-black text-white gap-3 transition-all hover:gap-4  absolute bottom-8 md:left-8 left-2 border-2 py-2 px-4 border-white rounded-sm">
         <p className="font-medium  font-heading md:text-xl text-lg">{label}</p>
         <ArrowRight
           size={28}
           strokeWidth={2}
-          className="rounded-full bg-white text-black p-1"
+          className="group-hover:text-black text-white p-1"
         />
       </div>
     </div>

@@ -4,6 +4,7 @@ import {
   Menu,
   Search,
   User2,
+  UserIcon,
 } from "lucide-react";
 
 import Link from "next/link";
@@ -49,7 +50,7 @@ export default function Header({
 
 
   return (
-    <header className="bg-offwhite py-3 border-b border-neutral-300">
+    <header className="bg-white py-3 sticky top-0 border-b border-neutral-300">
       <Container className="flex items-center justify-between">
 
         <div className="flex items-center gap-3">
@@ -92,8 +93,8 @@ export default function Header({
 
           {user ? (
             <div className="flex items-center gap-2">
-              <User2 className="bg-black text-white h-7 w-7 p-1 rounded-full" />
-              <span className="font-medium text-wrap">
+              <UserIcon className=" h-7 w-7 p-1 rounded-full" />
+              <span className="text-sm font-medium text-wrap">
                 {user.name.split(" ",1)}
               </span>
             </div>

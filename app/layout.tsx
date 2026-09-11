@@ -40,7 +40,7 @@ export default async function RootLayout({
       lang="en"
       className={`${inter.variable} ${cormorant.variable} h-full antialiased`}
     >
-      <body className="font-body min-h-screen">
+      <body className="font-body min-h-screen relative">
         <AuthProvider user={user}>
           <div className="min-h-screen flex flex-col justify-between w-full">
             <div>

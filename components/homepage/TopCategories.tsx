@@ -25,7 +25,7 @@ export default function TopCategories({
   categories: Categories[];
 }) {
   return (
-    <Container className="w-full flex flex-col gap-4">
+    <Container className="w-full flex flex-col gap-8">
       <Subtitle
         label="Top Categories"
         showButton
