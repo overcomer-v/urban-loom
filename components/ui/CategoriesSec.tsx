@@ -28,7 +28,7 @@ export function CategoriesSec({
                 onClick={onItemsClick}
                 key={item.id}
                 href={`/categories/${item.id}?name=${item.category}`}
-                className="rounded px-10 py-3 hover:bg-neutral-200 transition-colors"
+                className="px-10 py-3 hover:bg-neutral-200 transition-colors"
               >
                 {item.category}
               </Link>

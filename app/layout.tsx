@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import {
   Cormorant_Garamond,
   Inter,
+  Poppins,
 } from "next/font/google";
 
 import "./globals.css";
@@ -16,6 +17,13 @@ const cormorant = Cormorant_Garamond({
   weight: ["300", "400", "500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-cormorant",
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'], // pick the weights you actually use
+  variable: '--font-poppins',
+  display: 'swap',
 });
 
 const inter = Inter({
@@ -38,7 +46,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${inter.variable} ${cormorant.variable} ${poppins.variable} h-full antialiased`}
     >
       <body className="font-body min-h-screen relative">
         <AuthProvider user={user}>

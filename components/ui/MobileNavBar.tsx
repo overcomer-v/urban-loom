@@ -52,7 +52,7 @@ export default function MobileNav({ isOpen, onClose, user }: MobileNavProps) {
 
       {/* Nav */}
       <aside
-        className={`fixed top-0 left-0 z-100 h-full w-80 bg-white
+        className={`fixed top-0 left-0 z-100 h-full w-90 bg-white
           transition-transform duration-300 ease-in-out
           ${isOpen ? "translate-x-0" : "-translate-x-full"} flex flex-col px-8 py-8 gap-6`}
       >
@@ -80,6 +80,37 @@ export default function MobileNav({ isOpen, onClose, user }: MobileNavProps) {
           </button>
         </div>
 
+        {user ? (
+          <div className="flex items-center gap-4 border-b-2 pb-4 mb-6 border-neutral-100">
+            <User2 className=" p-1 rounded-full border-2 opacity-60 w-13 h-10"/>
+            <div>
+              <span className="text-wrap font-medium font-sans tracking-wider ">
+                {user.name.split(" ", 2).join(" ")}
+              </span>{" "}
+              <span className="text-wrap text-sm opacity-70">{user.email}</span>
+            </div>
+          </div>
+        ) : (
+          <div className="flex items-center gap-4">
+            <Link
+              href={"/signin"}
+              className="bg-neutral-300 px-5 py-2 text-xs rounded-4xl text-nowrap"
+            >
+              Log In
+            </Link>
+
+            <Link
+              href="/signup"
+              onClick={() => {
+                onClose();
+              }}
+              className="bg-black text-white px-5 py-2 text-xs rounded-4xl text-nowrap"
+            >
+              Sign Up
+            </Link>
+          </div>
+        )}
+
         <Link
           href="/"
           onClick={() => {
@@ -96,28 +127,6 @@ export default function MobileNav({ isOpen, onClose, user }: MobileNavProps) {
 
         <Link href="/about">ABOUT US</Link>
         <Link href="/contact-us">CONTACT US</Link>
-        {user ? (
-          <div className="flex items-center gap-2">
-            <User2 className="bg-black text-white h-8 w-8 p-1 rounded-full" />
-            <span className="font-semibold text-wrap">{user.name}</span>
-          </div>
-        ) : (
-          <div className="flex items-center gap-4">
-            <Link href={"/signin"}className="bg-neutral-300 px-5 py-2 text-xs rounded-4xl text-nowrap">
-              Log In
-            </Link>
-
-            <Link
-              href="/signup"
-              onClick={() => {
-                onClose();
-              }}
-              className="bg-black text-white px-5 py-2 text-xs rounded-4xl text-nowrap"
-            >
-              Sign Up
-            </Link>
-          </div>
-        )}
       </aside>
     </>
   );

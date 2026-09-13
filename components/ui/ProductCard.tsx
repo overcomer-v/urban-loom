@@ -6,8 +6,8 @@ export function BaseProductCard({ product }: { product: Product }) {
   return (
     <Link href={`/product-overview/${product.id}`}>
       {" "}
-      <div className="flex flex-col gap-4 items-start shadow-md hover:shadow-2xl p-4 group transition-all duration-300">
-        <div className="w-full bg-neutral-100 relative aspect-square rounded overflow-hidden">
+      <div className="flex flex-col rounded-md gap-8 items-start shadow-sm hover:shadow-xl p-4 px-4 group transition-all duration-300">
+        <div className="w-full bg-neutral-100 relative aspect-3/4 rounded-md overflow-hidden">
           <Image
             src={product.images[0]}
             alt=""
@@ -17,9 +17,9 @@ export function BaseProductCard({ product }: { product: Product }) {
         </div>
 
         <div className="">
-          <p className="opacity-40 text-xs">{product.sex.toUpperCase()}</p>
-          <p className="font-bold text-lg font-heading">{product.name}</p>
-          <p className="opacity-80 text-sm">{`$${product.price}`}</p>
+          <p className="opacity-40 text-xs tracking-wider">{product.sex.toUpperCase()}</p>
+          <p className="text-lg font-semibold font-heading">{product.name}</p>
+          <p className="opacity-80 text-base">{`$${product.price}`}</p>
         </div>
       </div>
     </Link>
@@ -42,14 +42,14 @@ export function SecondaryProductCard({ product }: { product: Product }) {
         <div className="flex flex-col gap-2 md:gap-6 h-full py-3">
           <div>
             <div>
-              <p className="opacity-40 text-xs mb-1.5">{product.sex.toUpperCase()}</p>
+              <p className="opacity-40 text-sm mb-1.5 tracking-widest">{product.sex.toUpperCase()}</p>
               <p className="font-bold text-lg leading-5 md:leading-normal font-heading">{product.name}</p>
             </div>
             <p className="text-xs mt-2 opacity-50 line-clamp-2">
               {product.description}
             </p>
           </div>
-          <p className="opacity-100">{`$${product.price}`}</p>
+          <p className="opacity-100 text-lg">{`$${product.price}`}</p>
         </div>
       </div>
     </Link>

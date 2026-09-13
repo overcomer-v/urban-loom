@@ -61,11 +61,12 @@ export default function LoginForm() {
 
       if (!res.ok) {
         setServerError(data.message || "Invalid email or password");
-        console.log(data.error)
+        console.log(data.error);
         return;
       }
 
-      router.push("/");
+      router.replace("/");
+      router.refresh();
     } catch {
       setServerError("Network error. Please try again.");
     } finally {
@@ -76,8 +77,7 @@ export default function LoginForm() {
   const inputClass =
     "peer w-full border border-gray-300 h-13 text-sm rounded-lg px-4 pt-6 pb-2 outline-none focus:border-black transition";
 
-  const labelClass =
-    `absolute left-4 top-2 text-sm text-gray-300 transition-all
+  const labelClass = `absolute left-4 top-2 text-sm text-gray-300 transition-all
      peer-placeholder-shown:top-4
      peer-placeholder-shown:text-sm
      peer-placeholder-shown:text-gray-400
@@ -89,9 +89,7 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5 w-100">
-      {serverError && (
-        <p className="text-red-500 text-sm">{serverError}</p>
-      )}
+      {serverError && <p className="text-red-500 text-sm">{serverError}</p>}
 
       <h2 className="text-3xl font-bold font-heading">Welcome Back</h2>
 
@@ -136,7 +134,10 @@ export default function LoginForm() {
       </div>
 
       <div className="text-right">
-        <a href="/forgot-password" className="text-sm text-gray-500 hover:text-black transition">
+        <a
+          href="/forgot-password"
+          className="text-sm text-gray-500 hover:text-black transition"
+        >
           Forgot password?
         </a>
       </div>
