@@ -21,7 +21,7 @@ export function SizePicker({
         {sizes.map((item, index) => (
           <div
             key={index + item.size}
-            className={`text-sm shrink-0 ${selectedSize.size === item.size ? "bg-neutral-800 text-white" : "bg-neutral-100"} cursor-pointer rounded-full  flex items-center justify-center h-12 w-16`}
+            className={`text-sm shrink-0 ${selectedSize.size === item.size ? "bg-neutral-800 text-white" : "bg-neutral-100"} cursor-pointer rounded-full  flex items-center justify-center md:h-12 md:w-16 h-10 w-12`}
             onClick={() => {
               onSizeSelected(item);
             }}

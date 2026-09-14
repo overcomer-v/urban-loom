@@ -72,11 +72,11 @@ export function ProductDetails({ product }: { product: Product }) {
           {/* {Order Buttons} */}
 
           <div className="flex items-center gap-3 justify-start md:mt-auto mt-6">
-            <button className="rounded-full px-8 py-5 w-fit border gap-3 border-neutral-300 flex items-center">
+            <button className="rounded-full md:px-8 px-6 py-4 md:py-5 w-fit border gap-3 border-neutral-300 flex items-center">
               <p>Add to Cart</p>
               <ShoppingCart />
             </button>
-            <button className="rounded-full px-8 py-5 w-fit gap-3 bg-black text-white flex items-center">
+            <button className="rounded-full mx:px-8 px-6 py-4 md:py-5 w-fit gap-3 bg-black text-white flex items-center">
               <p>Buy Now</p>
               <ArrowRight />
             </button>
