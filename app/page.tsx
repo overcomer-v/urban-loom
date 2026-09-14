@@ -15,7 +15,7 @@ export default async function Home() {
   const categories = await getCategories();
 
   return (
-    <div className="flex flex-col m-auto bg-transparent md:gap-16 gap-10 w-full ">
+    <div className="flex flex-col m-auto bg-transparent md:gap-16 gap-10 w-full mb-16">
       <HeroSec />
       <TopCategories categories={categories} />
       <NewArrivals products={latestProducts} />

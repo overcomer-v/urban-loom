@@ -29,6 +29,7 @@ export function SearchBox() {
           className="w-70 px-4 h-10 text-sm rounded-l-md border outline-0 border-r-0 border-neutral-300"
           type="text"
           value={queryText}
+          placeholder="Search products here"
           onChange={(e) => {
             setQuerytext(e.target.value);
           }}

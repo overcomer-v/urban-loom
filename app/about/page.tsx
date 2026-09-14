@@ -4,12 +4,12 @@ import Image from "next/image";
 
 export default async function AboutUs() {
   return (
-    <div className="flex flex-col py-24 gap-24">
+    <div className="flex flex-col py-24 gap-24 m-auto md:w-[90%]">
       {" "}
       <Container className="grid lg:grid-cols-2 gap-8 items-center justify-center">
         <div className="space-y-4 ">
           <h1 className="text-5xl font-bold font-heading">ABOUT US</h1>
-          <p className="opacity-60 text-sm w-[80%]">
+          <p className="opacity-60">
             At Urban Loom, we believe fashion is more than clothing — it’s
             self-expression. We create modern streetwear and timeless essentials
             designed for confidence and comfort. Our goal is to blend style,
@@ -55,7 +55,7 @@ export default async function AboutUs() {
           src="/about/hunter-newton-YjxcPMb7JGw-unsplash-balck.jpg"
         />{" "}
       </Container> */}
-      <Container className="grid lg:grid-cols-2 mt-12 items-center">
+      <Container className="grid lg:grid-cols-2 mt-12 items-center justify-center">
         <div className="relative w-120 h-120">
           {/* Offset block */}
           <div className="absolute -bottom-10 -right-10 w-full h-full bg-offwhite rounded-lg" />
@@ -73,7 +73,7 @@ export default async function AboutUs() {
         </div>
         <div className="flex flex-col gap-6 ">
           <Quote fill="" />
-          <p className=" opacity-50 text-lg w-[70%]">
+          <p className=" opacity-50">
             Urban Loom was built with a simple vision, to create fashion that
             feels natural, confident, and timeless. We believe style should not
             be loud to be powerful, and every piece we design is meant to help

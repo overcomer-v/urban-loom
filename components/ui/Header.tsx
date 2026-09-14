@@ -81,7 +81,7 @@ export default function Header({
   }, [showDialog]);
 
   return (
-    <header className="bg-white py-4 border-b border-neutral-300">
+    <header className="bg-white py-3 border-b border-neutral-300">
       <Container className="flex items-center justify-between">
         <div className="flex items-center gap-3">
            <Menu
@@ -96,6 +96,7 @@ export default function Header({
               alt=""
               width={30}
               height={30}
+              className="rounded-lg"
             />
           </Link>
 
@@ -112,7 +113,7 @@ export default function Header({
           <Link href="/contact-us">CONTACT US</Link>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <Link href="/shop?mode=query">
             <Search className="h-10 w-10 p-2 rounded-full hover:bg-neutral-100" />
           </Link>
@@ -135,7 +136,7 @@ export default function Header({
             <div className="hidden md:flex gap-3">
               <Link
                 href={"/signin"}
-                className="bg-neutral-300 px-5 py-2 text-xs rounded-4xl text-nowrap"
+                className="bg-neutral-100 px-5 py-2 text-xs rounded-4xl text-nowrap"
               >
                 Log In
               </Link>

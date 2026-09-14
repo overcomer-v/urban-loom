@@ -47,7 +47,7 @@ export default function Dropdown({
         className="w-full min-w-22 flex justify-between text-xs items-center border-neutral-200 border px-3 py-1 rounded-sm"
       >
         {selectedOption?.split(" ", 1)}
-        <span>▼</span>
+        <span className="opacity-70">▼</span>
       </button>
 
       {open && (

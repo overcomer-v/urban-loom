@@ -88,7 +88,7 @@ export default function LoginForm() {
     "w-full bg-black text-white py-3 rounded-lg hover:opacity-90 transition disabled:opacity-50";
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5 w-100">
+    <form onSubmit={handleSubmit} noValidate className="space-y-5 md:w-100 w-[90vw]">
       {serverError && <p className="text-red-500 text-sm">{serverError}</p>}
 
       <h2 className="text-3xl font-bold font-heading">Welcome Back</h2>

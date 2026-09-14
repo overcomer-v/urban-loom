@@ -82,7 +82,7 @@ export default function MobileNav({ isOpen, onClose, user }: MobileNavProps) {
 
         {user ? (
           <div className="flex items-center gap-4 border-b-2 pb-4 mb-6 border-neutral-100">
-            <User2 className=" p-1 rounded-full border-2 opacity-60 w-13 h-10"/>
+            <User2 className=" p-1 rounded-full border-2 opacity-60 w-13 h-10" />
             <div>
               <span className="text-wrap font-medium font-sans tracking-wider ">
                 {user.name.split(" ", 2).join(" ")}
@@ -94,7 +94,10 @@ export default function MobileNav({ isOpen, onClose, user }: MobileNavProps) {
           <div className="flex items-center gap-4">
             <Link
               href={"/signin"}
-              className="bg-neutral-300 px-5 py-2 text-xs rounded-4xl text-nowrap"
+              onClick={() => {
+                onClose();
+              }}
+              className="bg-neutral-100 px-5 py-2 text-xs rounded-4xl text-nowrap"
             >
               Log In
             </Link>
@@ -125,8 +128,22 @@ export default function MobileNav({ isOpen, onClose, user }: MobileNavProps) {
           onItemsClick={onClose}
         />
 
-        <Link href="/about">ABOUT US</Link>
-        <Link href="/contact-us">CONTACT US</Link>
+        <Link
+          href="/about"
+          onClick={() => {
+            onClose();
+          }}
+        >
+          ABOUT US
+        </Link>
+        <Link
+          href="/contact-us"
+          onClick={() => {
+            onClose();
+          }}
+        >
+          CONTACT US
+        </Link>
       </aside>
     </>
   );
