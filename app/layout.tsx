@@ -11,6 +11,7 @@ import Footer from "@/components/ui/Footer";
 import { AuthProvider } from "@/context/AuthContext";
 import { getCurrentUser } from "@/lib/auth";
 import MobileNavigation from "@/components/ui/MobileNavigation";
+import { Toaster } from "sonner";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -55,11 +56,12 @@ export default async function RootLayout({
               <MobileNavigation user={user} />
             </div>
 
-            <div className="flex">
+            <div className="flex min-h-screen w-full">
               {children}
             </div>
 
             <Footer />
+            <Toaster position="top-right" richColors />
           </div>
         </AuthProvider>
       </body>

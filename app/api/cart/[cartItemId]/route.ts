@@ -36,6 +36,7 @@ export async function PATCH(
     }
 
     const item = await updateCartItemQuantity(
+      user.id,
       cartItemId,
       quantity
     );
@@ -74,7 +75,14 @@ export async function DELETE(
 
     const { cartItemId } = await params;
 
-    await removeCartItem(cartItemId);
+    const item = await removeCartItem(user.id, cartItemId);
+
+    if (!item) {
+      return NextResponse.json(
+        { error: "Cart item not found" },
+        { status: 404 },
+      );
+    }
 
     return NextResponse.json({
       message: "Cart item removed successfully",

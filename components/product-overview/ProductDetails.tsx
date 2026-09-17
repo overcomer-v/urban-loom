@@ -2,6 +2,8 @@
 import { Product, Size } from "@/types/products";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { SizePicker } from "./SizePicker";
 import {
   ArrowRight,
@@ -16,6 +18,7 @@ import Subtitle from "../ui/Subtitle";
 import { BaseProductCard } from "../ui/ProductCard";
 
 export function ProductDetails({ product }: { product: Product }) {
+  const router = useRouter();
   const [selectedSize, setSelectedSize] = useState<Size>(
     product.sizes.find((item) => item.size === "S") ?? product.sizes[0],
   );
@@ -30,14 +33,15 @@ export function ProductDetails({ product }: { product: Product }) {
       });
       const data = await response.json();
       if (!response.ok) {
-        alert(data.error || "Failed to add item to cart");
+        toast.error(data.error || "Failed to add item to cart");
         return null;
       }
-      alert("Item added to cart");
+      window.dispatchEvent(new Event("cart-updated"));
+      toast.success("Item added to cart");
       return data;
     } catch (error) {
       console.error("Failed to add item to cart:", error);
-      alert("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.");
       return null;
     }
   }
@@ -73,7 +77,7 @@ export function ProductDetails({ product }: { product: Product }) {
           <h2 className="text-3xl font-semibold font-heading">
             {product.name}
           </h2>
-          <p className="font-bold text-xl">${product?.price}</p>
+          <p className="font-bold text-xl">₦{Number(product?.price).toLocaleString()}</p>
           {product?.sizes && (
             <SizePicker
               sizes={product?.sizes}
@@ -110,7 +114,10 @@ export function ProductDetails({ product }: { product: Product }) {
               {loading ? <Loader2 className="animate-spin"/> : <ShoppingCart />}
             </button>
 
-            <button className="rounded-full md:text-base text-sm text-nowrap mx:px-8 px-6 py-4 md:py-5 w-fit gap-3 bg-black text-white flex items-center">
+            <button
+              onClick={() => router.push(`/checkout?productSizeId=${selectedSize.product_size_id}&quantity=${quantitySelected}`)}
+              className="rounded-full md:text-base text-sm text-nowrap mx:px-8 px-6 py-4 md:py-5 w-fit gap-3 bg-black text-white flex items-center"
+            >
               <p>Buy Now</p>
               <ArrowRight />
             </button>

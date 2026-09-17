@@ -93,23 +93,48 @@ export async function addToCart(
 }
 
 export async function updateCartItemQuantity(
+  userId: string,
   cartItemId: string,
   quantity: number
 ) {
 
   const result = await pool.query(
-    `UPDATE cart_items SET quantity = $1 WHERE id = $2 RETURNING *`,
-    [quantity, cartItemId]
+    `UPDATE cart_items ci
+    SET quantity = $1
+    FROM carts c
+    WHERE ci.id = $2 AND ci.cart_id = c.id AND c.user_id = $3
+    RETURNING ci.*`,
+    [quantity, cartItemId, userId]
   );
 
   return result.rows[0];
 
 }
 
-export async function removeCartItem(cartItemId: string) {
-  await pool.query(`DELETE FROM cart_items WHERE id = $1`, [cartItemId]);
+export async function removeCartItem(userId: string, cartItemId: string) {
+  const result = await pool.query(
+    `DELETE FROM cart_items ci
+    USING carts c
+    WHERE ci.id = $1 AND ci.cart_id = c.id AND c.user_id = $2
+    RETURNING ci.id`,
+    [cartItemId, userId],
+  );
+
+  return result.rows[0];
 }
 
 export async function clearCart(cartId: string) {
   await pool.query(`DELETE FROM cart_items WHERE cart_id = $1`, [cartId]);
+}
+
+export async function getCartItemCount(userId: string) {
+  const result = await pool.query<{ item_count: number }>(
+    `SELECT COALESCE(SUM(ci.quantity), 0)::integer AS item_count
+    FROM carts c
+    LEFT JOIN cart_items ci ON ci.cart_id = c.id
+    WHERE c.user_id = $1`,
+    [userId],
+  );
+
+  return result.rows[0]?.item_count ?? 0;
 }

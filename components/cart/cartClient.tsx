@@ -60,6 +60,7 @@ export default function MyCartsPage() {
       }
 
       setCart([]);
+      window.dispatchEvent(new Event("cart-updated"));
     } catch (error) {
       console.error("Failed to clear cart:", error);
     } finally {
@@ -192,9 +193,12 @@ export default function MyCartsPage() {
               </div>
             </div>
 
-            <button className="w-full mt-6 bg-black text-white py-3.5 rounded-lg text-sm font-medium hover:bg-neutral-800 transition">
+            <Link
+              href="/checkout"
+              className="block w-full mt-6 bg-black text-white py-3.5 rounded-lg text-sm font-medium hover:bg-neutral-800 transition text-center"
+            >
               Proceed to Checkout
-            </button>
+            </Link>
 
             <Link
               href="/shop"
@@ -243,6 +247,7 @@ function OrderItemsCard({
       const updatedItem = await response.json();
 
       onCartUpdate(updatedItem, cartItemId);
+      window.dispatchEvent(new Event("cart-updated"));
     } catch (error) {
       console.error("Failed to update quantity:", error);
     } finally {
@@ -263,6 +268,7 @@ function OrderItemsCard({
       }
 
       onCartDelete(cartItemId);
+      window.dispatchEvent(new Event("cart-updated"));
     } catch (error) {
       console.error("Failed to remove item:", error);
     } finally {

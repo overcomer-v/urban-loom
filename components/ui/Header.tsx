@@ -39,6 +39,7 @@ export default function Header({
   const [categories, setCategories] = useState<Categories[]>([]);
   const [loading, setLoading] = useState(true);
   const [showDialog, setShowDialog] = useState<boolean>(false);
+  const [cartCount, setCartCount] = useState(0);
   const accountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -61,6 +62,23 @@ export default function Header({
     }
 
     fetchCategories();
+  }, []);
+
+  useEffect(() => {
+    async function fetchCartCount() {
+      try {
+        const response = await fetch("/api/cart/count");
+        if (!response.ok) return;
+        const data = await response.json();
+        setCartCount(data.count);
+      } catch (error) {
+        console.error("Error fetching cart count:", error);
+      }
+    }
+
+    fetchCartCount();
+    window.addEventListener("cart-updated", fetchCartCount);
+    return () => window.removeEventListener("cart-updated", fetchCartCount);
   }, []);
 
   useEffect(() => {
@@ -149,8 +167,13 @@ export default function Header({
               </Link>
             </div>
           )}
-          <Link href={"/cart"}>
+          <Link href={"/cart"} className="relative" aria-label={`Cart with ${cartCount} items`}>
             <ShoppingBag className="w-6 h-6" />{" "}
+            {cartCount > 0 && (
+              <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[10px] font-semibold text-white">
+                {cartCount > 99 ? "99+" : cartCount}
+              </span>
+            )}
           </Link>
         </div>
       </Container>
@@ -192,7 +215,9 @@ function AccountOptions({
       <div className="hover:bg-neutral-100 px-3 py-3 rounded-md">
         My Profile
       </div>
-      <div className="hover:bg-neutral-100 px-3 py-3 rounded-md">My Orders</div>
+      <Link href="/orders" className="hover:bg-neutral-100 px-3 py-3 rounded-md">
+        My Orders
+      </Link>
 
       <div
         onClick={handleLogout}

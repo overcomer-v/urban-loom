@@ -1,26 +1,76 @@
-import Container, { FullContainer } from "./Container";
+import Link from "next/link";
+import { ArrowUpRight, Mail, MapPin } from "lucide-react";
+import Container from "./Container";
+
+const shopLinks = [
+  { label: "Shop all", href: "/shop" },
+  { label: "New arrivals", href: "/shop?type=newarrivals" },
+  { label: "Categories", href: "/categories" },
+  { label: "Your cart", href: "/cart" },
+];
+
+const supportLinks = [
+  { label: "About Urban Loom", href: "/about" },
+  { label: "Contact us", href: "/contact-us" },
+  { label: "My orders", href: "/orders" },
+  { label: "Sign in", href: "/signin" },
+];
 
 export default function Footer() {
   return (
-    <footer className="bg-neutral-800 py-12">
-      <Container className="flex items-start w-full justify-between  gap-5  text-white text-xs  [&_h4]:mb-3 [&_span]:opacity-60 [&_span]:font-extralight [&_span]:text-xs">
-        <div className="flex flex-col gap-1 items-start">
+    <footer className="mt-auto bg-neutral-950 text-white">
+      <Container className="w-full px-4 py-12 md:px-12 md:py-16 xl:px-16">
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-[1.5fr_0.8fr_0.8fr_1fr] lg:gap-8">
+          <section>
+            <Link href="/" className="font-heading text-3xl font-semibold tracking-wide">
+              URBAN LOOM
+            </Link>
+            <p className="mt-4 max-w-xs text-sm leading-6 text-neutral-400">
+              Modern essentials and elevated streetwear, made for every expression of your style.
+            </p>
+            <Link href="/shop" className="mt-6 inline-flex items-center gap-2 text-sm font-medium transition hover:text-neutral-300">
+              Shop the collection <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </section>
 
-          <h4>CUSTOMER SERVICE</h4>
-          <span>ABOUT</span>
-          <span>CONTACT</span>
-          <span>TERMS & CONDITION</span>
+          <FooterLinks title="Shop" links={shopLinks} />
+          <FooterLinks title="Support" links={supportLinks} />
+
+          <section>
+            <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-300">Connect</h2>
+            <div className="mt-5 space-y-4 text-sm text-neutral-400">
+              <a href="mailto:hello@urbanloom.com" className="flex items-center gap-2 transition hover:text-white">
+                <Mail className="h-4 w-4" /> hello@urbanloom.com
+              </a>
+              <Link href="/contact-us" className="flex items-center gap-2 transition hover:text-white">
+                <MapPin className="h-4 w-4" /> Lagos, Nigeria
+              </Link>
+            </div>
+          </section>
         </div>
-        <div className="flex flex-col gap-1 items-start">
-          <h4>CATEGORIES</h4>
-          <span>SHIRTS</span>
-          <span>JOGGERS</span>
-          <span>FORMALWEARS</span>
-          <span>HOODIES</span>
-          <span>ACCESSORIES</span>
+
+        <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} Urban Loom. All rights reserved.</p>
+          <p>Designed for everyday expression.</p>
         </div>
-        <h4>CONNECT</h4>
       </Container>
     </footer>
+  );
+}
+
+function FooterLinks({ title, links }: { title: string; links: { label: string; href: string }[] }) {
+  return (
+    <section>
+      <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-neutral-300">{title}</h2>
+      <ul className="mt-5 space-y-3 text-sm text-neutral-400">
+        {links.map((link) => (
+          <li key={link.href}>
+            <Link href={link.href} className="transition hover:text-white">
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }

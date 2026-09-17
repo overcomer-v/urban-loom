@@ -81,14 +81,19 @@ export default function MobileNav({ isOpen, onClose, user }: MobileNavProps) {
         </div>
 
         {user ? (
-          <div className="flex items-center gap-4 border-b-2 pb-4 mb-6 border-neutral-100">
-            <User2 className=" p-1 rounded-full border-2 opacity-60 w-13 h-10" />
-            <div>
-              <span className="text-wrap font-medium font-sans tracking-wider ">
-                {user.name.split(" ", 2).join(" ")}
-              </span>{" "}
-              <span className="text-wrap text-sm opacity-70">{user.email}</span>
+          <div className="border-b-2 pb-4 mb-6 border-neutral-100">
+            <div className="flex items-center gap-4">
+              <User2 className=" p-1 rounded-full border-2 opacity-60 w-13 h-10" />
+              <div>
+                <span className="text-wrap font-medium font-sans tracking-wider ">
+                  {user.name.split(" ", 2).join(" ")}
+                </span>{" "}
+                <span className="text-wrap text-sm opacity-70">{user.email}</span>
+              </div>
             </div>
+            <Link href="/orders" onClick={onClose} className="mt-4 block text-sm font-medium">
+              My Orders
+            </Link>
           </div>
         ) : (
           <div className="flex items-center gap-4">
