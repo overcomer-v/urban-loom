@@ -12,7 +12,8 @@ export interface Product {
 
 export interface Size{
   stock:number;
-  size:string
+  size:string;
+  product_size_id:string;
 }
 
 export const SEX_OPTIONS = ["male", "female", "unisex"] as const;

@@ -131,7 +131,6 @@ ${orderBy}
 
 export async function getProduct(id: string) {
 
-
   const query = `
 SELECT
   p.id,
@@ -152,6 +151,7 @@ SELECT
     json_agg(
       DISTINCT jsonb_build_object(
         'size', s.name,
+        'product_size_id', ps.id,
         'stock', ps.amount_in_stock
       )
     ) FILTER (WHERE s.name IS NOT NULL),

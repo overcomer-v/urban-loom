@@ -6,6 +6,7 @@ import { SizePicker } from "./SizePicker";
 import {
   ArrowRight,
   CalendarFold,
+  Loader2,
   Minus,
   Package,
   Plus,
@@ -19,8 +20,33 @@ export function ProductDetails({ product }: { product: Product }) {
     product.sizes.find((item) => item.size === "S") ?? product.sizes[0],
   );
   const [quantitySelected, setQuantitySelected] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>();
+  async function addToCart(productSizeId: string, quantity: number) {
+    try {
+      const response = await fetch("/api/cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productSizeId, quantity }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        alert(data.error || "Failed to add item to cart");
+        return null;
+      }
+      alert("Item added to cart");
+      return data;
+    } catch (error) {
+      console.error("Failed to add item to cart:", error);
+      alert("Something went wrong. Please try again.");
+      return null;
+    }
+  }
 
-  console.log(product);
+  console.log(selectedSize);
+
+  console.log(selectedSize.product_size_id, quantitySelected);
+
+  // console.log(product);
   return (
     <div>
       {" "}
@@ -72,10 +98,18 @@ export function ProductDetails({ product }: { product: Product }) {
           {/* {Order Buttons} */}
 
           <div className="flex items-center gap-3 justify-between md:justify-start md:mt-auto mt-6">
-            <button className="rounded-full md:text-base text-sm text-nowrap md:px-8 px-6 py-4 md:py-5 w-fit border gap-3 border-neutral-300 flex items-center">
+            <button
+              onClick={async () => {
+                setLoading(true);
+                await addToCart(selectedSize.product_size_id, quantitySelected);
+                setLoading(false);
+              }}
+              className="rounded-full md:text-base text-sm text-nowrap md:px-8 px-6 py-4 md:py-5 w-fit border gap-3 border-neutral-300 flex items-center"
+            >
               <p>Add to Cart</p>
-              <ShoppingCart />
+              {loading ? <Loader2 className="animate-spin"/> : <ShoppingCart />}
             </button>
+
             <button className="rounded-full md:text-base text-sm text-nowrap mx:px-8 px-6 py-4 md:py-5 w-fit gap-3 bg-black text-white flex items-center">
               <p>Buy Now</p>
               <ArrowRight />

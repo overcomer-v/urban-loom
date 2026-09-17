@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type FormData = {
   email: string;
@@ -19,6 +19,8 @@ export default function LoginForm() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState("");
+  const params = useSearchParams();
+  const redirect = params.get("redirect");
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -65,7 +67,11 @@ export default function LoginForm() {
         return;
       }
 
-      router.replace("/");
+      if (redirect) {
+        router.replace(redirect);
+      } else {
+        router.replace("/");
+      }
       router.refresh();
     } catch {
       setServerError("Network error. Please try again.");
@@ -88,7 +94,11 @@ export default function LoginForm() {
     "w-full bg-black text-white py-3 rounded-lg hover:opacity-90 transition disabled:opacity-50";
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5 md:w-100 w-[90vw]">
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      className="space-y-5 md:w-100 w-[90vw]"
+    >
       {serverError && <p className="text-red-500 text-sm">{serverError}</p>}
 
       <h2 className="text-3xl font-bold font-heading">Welcome Back</h2>

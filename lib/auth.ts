@@ -5,7 +5,7 @@ import pool from "@/lib/db"
 import { User } from "@/types/User"
 
 
-export async function getCurrentUser(): Promise<User> {
+export async function getCurrentUser(): Promise<User | null> {
   try {
     const cookieStore = await cookies()
     const token = cookieStore.get("token")?.value

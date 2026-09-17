@@ -84,7 +84,7 @@ export default function Header({
     <header className="bg-white py-3 border-b border-neutral-300">
       <Container className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-           <Menu
+          <Menu
             className="md:hidden flex"
             onClick={() => {
               onMenuClick();
@@ -100,7 +100,7 @@ export default function Header({
             />
           </Link>
 
-          <Link href="/" className="font-medium md:text-xl text-sm">
+          <Link href="/" className="font-semibold md:text-xl text-sm">
             URBAN LOOM
           </Link>
         </div>
@@ -149,8 +149,9 @@ export default function Header({
               </Link>
             </div>
           )}
-          <ShoppingBag className="w-6 h-6" />{" "}
-         
+          <Link href={"/cart"}>
+            <ShoppingBag className="w-6 h-6" />{" "}
+          </Link>
         </div>
       </Container>
     </header>
