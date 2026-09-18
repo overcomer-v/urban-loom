@@ -28,10 +28,10 @@ export function BaseProductCard({ product }: { product: Product }) {
             <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-400">
               {product.sex}
             </p>
-            <h3 className="mt-1 line-clamp-3 font-heading text-xl font-semibold leading-tight text-neutral-900">
+            <h3 className="mt-1 line-clamp-3 font-heading text-lg font-semibold leading-tight text-neutral-900">
               {product.name}
             </h3>{" "}
-            <p className="shrink-0 pt-3 text-sm font-semibold text-neutral-900">
+            <p className="shrink-0 pt-3 text-base text-neutral-900">
               ₦{Number(product.price).toLocaleString()}
             </p>
           </div>
