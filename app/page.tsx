@@ -96,18 +96,19 @@ function SubHeroOne() {
 function HeroSec() {
   return (
     <section className="relative h-[72svh] min-h-[520px] w-full overflow-hidden md:h-[78vh] lg:h-screen">
-  <Image
+      <Image
   src="/homepage_decorations/ChatGPT Image Sep 11, 2026, 10_15_18 PM.png"
   alt="Urban Loom fashion collection"
   fill
   priority
   quality={100}
   sizes="100vw"
-  className="object-cover object-[65%_center] md:object-[60%_center]"
+  className="object-cover object-[65%_center] w-full h-full md:object-[60%_center]"
 />
+
       {/* Image overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-transparent" />
-      <Container className="relative z-10 h-full">
+      <div className="absolute z-50 inset-0 bg-gradient-to-r from-black/70 via-black/35 to-transparent" />
+      <Container className="relative z-50 h-full">
         <div className="flex h-full items-end pb-16 md:pb-24 lg:pb-28">
           <div className="w-full max-w-2xl text-white">
             {/* Eyebrow */}
