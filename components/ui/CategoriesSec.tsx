@@ -37,7 +37,8 @@ export function CategoriesSec({
                 item.category
               )}`}
               onClick={onItemsClick}
-              className="group flex items-center justify-between py-1"
+                className="group flex items-center justify-between rounded-sm px-3 py-2"
+
             >
               <span className="text-sm font-medium">
                 {item.category}

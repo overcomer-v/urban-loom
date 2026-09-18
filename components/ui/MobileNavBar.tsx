@@ -167,7 +167,7 @@ export default function MobileNav({
           <Link
             href="/"
             onClick={onClose}
-            className="font-heading text-3xl leading-none tracking-tight transition-colors hover:text-black/45"
+            className="font-heading text-2xl leading-none tracking-tight transition-colors hover:text-black/45"
           >
             Home
           </Link>
@@ -210,7 +210,7 @@ export default function MobileNav({
             <Link
               href="/about"
               onClick={onClose}
-              className="font-heading text-3xl leading-none tracking-tight transition-colors hover:text-black/45"
+              className="font-heading text-2xl leading-none tracking-tight transition-colors hover:text-black/45"
             >
               About Us
             </Link>
@@ -218,7 +218,7 @@ export default function MobileNav({
             <Link
               href="/contact-us"
               onClick={onClose}
-              className="font-heading text-3xl leading-none tracking-tight transition-colors hover:text-black/45"
+              className="font-heading text-2xl leading-none tracking-tight transition-colors hover:text-black/45"
             >
               Contact
             </Link>
@@ -228,7 +228,7 @@ export default function MobileNav({
           <Link
             href="/cart"
             onClick={onClose}
-            className="group mt-10 flex items-center justify-between border-y border-black/10 py-5"
+            className="group mt-10 flex items-center justify-between border-y border-black/10 py-5 px-2"
           >
             <div className="flex items-center gap-3">
               <ShoppingBag

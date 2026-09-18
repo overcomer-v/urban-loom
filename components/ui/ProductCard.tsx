@@ -36,7 +36,7 @@ export function BaseProductCard({ product }: { product: Product }) {
                 {product.sex} · {product.category}
               </p>
 
-              <h3 className="mt-1.5 line-clamp-2 font-heading text-lg font-semibold leading-tight text-neutral-900">
+              <h3 className="mt-1.5 line-clamp-2 font-heading text-lg font-medium leading-tight text-neutral-900">
                 {product.name}
               </h3> 
               <p className="shrink-0 pt-0.5 text-sm font-medium tracking-wide text-[#5C4033]">
