@@ -103,6 +103,8 @@ export default function Header({
       <Container className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <Menu
+            size={20}
+            strokeWidth={2.5}
             className="md:hidden flex"
             onClick={() => {
               onMenuClick();
@@ -167,7 +169,11 @@ export default function Header({
               </Link>
             </div>
           )}
-          <Link href={"/cart"} className="relative" aria-label={`Cart with ${cartCount} items`}>
+          <Link
+            href={"/cart"}
+            className="relative"
+            aria-label={`Cart with ${cartCount} items`}
+          >
             <ShoppingBag className="w-6 h-6" />{" "}
             {cartCount > 0 && (
               <span className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-black px-1 text-[10px] font-semibold text-white">
@@ -215,7 +221,10 @@ function AccountOptions({
       <div className="hover:bg-neutral-100 px-3 py-3 rounded-md">
         My Profile
       </div>
-      <Link href="/orders" className="hover:bg-neutral-100 px-3 py-3 rounded-md">
+      <Link
+        href="/orders"
+        className="hover:bg-neutral-100 px-3 py-3 rounded-md"
+      >
         My Orders
       </Link>
 

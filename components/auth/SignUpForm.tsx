@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type FormData = {
   name: string;
@@ -24,6 +24,8 @@ export default function SignUpForm() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState("");
+  const params = useSearchParams();
+  const redirect = params.get("redirect");
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
@@ -84,7 +86,12 @@ export default function SignUpForm() {
         return;
       }
 
-      router.push("/");
+      if (redirect) {
+        router.replace(redirect);
+      } else {
+        router.replace("/");
+      }
+      router.refresh();
     } catch {
       setServerError("Network error. Please try again.");
     } finally {
@@ -93,114 +100,111 @@ export default function SignUpForm() {
   }
 
   const inputClass =
-  "peer w-full border border-gray-300 h-13 text-sm rounded-lg px-4 pt-6 pb-2 outline-none focus:border-black transition";
+    "peer w-full border border-gray-300 h-13 text-sm rounded-lg px-4 pt-6 pb-2 outline-none focus:border-black transition";
 
-const labelClass =
-  `absolute left-4 top-2 text-sm text-gray-500 transition-all
+  const labelClass = `absolute left-4 top-2 text-sm text-gray-500 transition-all
    peer-placeholder-shown:top-4
    peer-placeholder-shown:text-sm
    peer-placeholder-shown:text-gray-400
    peer-focus:top-2
    peer-focus:text-xs`;
 
-const buttonClass =
-  "w-full bg-black text-white py-3 rounded-lg hover:opacity-90 transition disabled:opacity-50";
+  const buttonClass =
+    "w-full bg-black text-white py-3 rounded-lg hover:opacity-90 transition disabled:opacity-50";
 
   return (
-  <form onSubmit={handleSubmit} noValidate className="space-y-5 md:w-100 w-[90vw] m-auto">
-  {serverError && (
-    <p className="text-red-500 text-sm">{serverError}</p>
-  )}
+    <form
+      onSubmit={handleSubmit}
+      noValidate
+      className="space-y-5 md:w-100 w-[90vw] m-auto"
+    >
+      {serverError && <p className="text-red-500 text-sm">{serverError}</p>}
 
-  <h2 className="text-3xl font-bold font-heading">
-    Create Account
-  </h2>
+      <h2 className="text-3xl font-bold font-heading">Create Account</h2>
 
-  {/* Name */}
-  <div className="relative w-full">
-    <input
-      id="name"
-      name="name"
-      type="text"
-      placeholder=" "
-      value={formData.name}
-      onChange={handleChange}
-      disabled={isLoading}
-      className={inputClass}
-    />
-    <label htmlFor="name" className={labelClass}>
-      Name
-    </label>
-    {errors.name && (
-      <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-    )}
-  </div>
+      {/* Name */}
+      <div className="relative w-full">
+        <input
+          id="name"
+          name="name"
+          type="text"
+          placeholder=" "
+          value={formData.name}
+          onChange={handleChange}
+          disabled={isLoading}
+          className={inputClass}
+        />
+        <label htmlFor="name" className={labelClass}>
+          Name
+        </label>
+        {errors.name && (
+          <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+        )}
+      </div>
 
-  {/* Email */}
-  <div className="relative">
-    <input
-      id="email"
-      name="email"
-      type="email"
-      placeholder=" "
-      value={formData.email}
-      onChange={handleChange}
-      disabled={isLoading}
-      className={inputClass}
-    />
-    <label htmlFor="email" className={labelClass}>
-      Email
-    </label>
-    {errors.email && (
-      <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-    )}
-  </div>
+      {/* Email */}
+      <div className="relative">
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder=" "
+          value={formData.email}
+          onChange={handleChange}
+          disabled={isLoading}
+          className={inputClass}
+        />
+        <label htmlFor="email" className={labelClass}>
+          Email
+        </label>
+        {errors.email && (
+          <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+        )}
+      </div>
 
-  {/* Password */}
-  <div className="relative">
-    <input
-      id="password"
-      name="password"
-      type="password"
-      placeholder=" "
-      value={formData.password}
-      onChange={handleChange}
-      disabled={isLoading}
-      className={inputClass}
-    />
-    <label htmlFor="password" className={labelClass}>
-      Password
-    </label>
-    {errors.password && (
-      <p className="text-red-500 text-sm mt-1">{errors.password}</p>
-    )}
-  </div>
+      {/* Password */}
+      <div className="relative">
+        <input
+          id="password"
+          name="password"
+          type="password"
+          placeholder=" "
+          value={formData.password}
+          onChange={handleChange}
+          disabled={isLoading}
+          className={inputClass}
+        />
+        <label htmlFor="password" className={labelClass}>
+          Password
+        </label>
+        {errors.password && (
+          <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+        )}
+      </div>
 
-  {/* Confirm Password */}
-  <div className="relative">
-    <input
-      id="confirmPassword"
-      name="confirmPassword"
-      type="password"
-      placeholder=" "
-      value={formData.confirmPassword}
-      onChange={handleChange}
-      disabled={isLoading}
-      className={inputClass}
-    />
-    <label htmlFor="confirmPassword" className={labelClass}>
-      Confirm Password
-    </label>
-    {errors.confirmPassword && (
-      <p className="text-red-500 text-sm mt-1">
-        {errors.confirmPassword}
-      </p>
-    )}
-  </div>
+      {/* Confirm Password */}
+      <div className="relative">
+        <input
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          placeholder=" "
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          disabled={isLoading}
+          className={inputClass}
+        />
+        <label htmlFor="confirmPassword" className={labelClass}>
+          Confirm Password
+        </label>
+        {errors.confirmPassword && (
+          <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
+        )}
+      </div>
 
-  <button type="submit" disabled={isLoading} className={buttonClass}>
-    {isLoading ? "Creating account..." : "Sign Up"}
-  </button>
-</form>
+      <button type="submit" disabled={isLoading} className={buttonClass}>
+        {isLoading ? "Creating account..." : "Sign Up"}
+      </button>
+    </form>
   );
 }

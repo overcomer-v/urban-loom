@@ -1,4 +1,6 @@
+
 "use client";
+
 import { Product, Size } from "@/types/products";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -12,120 +14,210 @@ import {
   Minus,
   Package,
   Plus,
-  ShoppingCart,
+  ShoppingBag,
 } from "lucide-react";
 import Subtitle from "../ui/Subtitle";
 import { BaseProductCard } from "../ui/ProductCard";
 
 export function ProductDetails({ product }: { product: Product }) {
   const router = useRouter();
+
   const [selectedSize, setSelectedSize] = useState<Size>(
-    product.sizes.find((item) => item.size === "S") ?? product.sizes[0],
+    product.sizes.find((item) => item.size === "S") ?? product.sizes[0]
   );
-  const [quantitySelected, setQuantitySelected] = useState<number>(1);
-  const [loading, setLoading] = useState<boolean>();
+
+  const [quantitySelected, setQuantitySelected] = useState(1);
+  const [loading, setLoading] = useState(false);
+
   async function addToCart(productSizeId: string, quantity: number) {
     try {
+      setLoading(true);
+
       const response = await fetch("/api/cart", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productSizeId, quantity }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productSizeId,
+          quantity,
+        }),
       });
+
       const data = await response.json();
+
       if (!response.ok) {
         toast.error(data.error || "Failed to add item to cart");
-        return null;
+        return;
       }
+
       window.dispatchEvent(new Event("cart-updated"));
+
       toast.success("Item added to cart");
-      return data;
     } catch (error) {
       console.error("Failed to add item to cart:", error);
       toast.error("Something went wrong. Please try again.");
-      return null;
+    } finally {
+      setLoading(false);
     }
   }
 
-  console.log(selectedSize);
+  function handleSizeChange(size: Size) {
+    setSelectedSize(size);
 
-  console.log(selectedSize.product_size_id, quantitySelected);
+    // Make sure quantity is valid for the newly selected size.
+    setQuantitySelected((current) =>
+      Math.min(current, size.stock)
+    );
+  }
 
-  // console.log(product);
   return (
     <div>
-      {" "}
-      <section className="grid md:grid-cols-[55%_40%] lg:grid-cols-2 gap-16 my-12 ">
-        <div className="flex flex-col ">
-          <span className="opacity-40 text-xs mb-4">
-            {product?.category.toUpperCase()}
-          </span>
-          <div className="relative w-full aspect-square overflow-hidden rounded-xl bg-neutral-100">
+      <section className="grid gap-10 py-8 md:grid-cols-[1.1fr_0.9fr] md:gap-14 lg:grid-cols-2 lg:gap-20 lg:py-12">
+        {/* Product Image */}
+        <div className="space-y-4">
+          <div className="text-[10px] font-medium tracking-[0.25em] text-black/40">
+            {product.category.toUpperCase()}
+          </div>
+
+          <div className="relative aspect-square w-full overflow-hidden bg-neutral-100">
             <Image
               src={product.images[0]}
-              alt=""
+              alt={product.name}
               fill
-              loading="eager"
+              priority
+              sizes="(max-width: 768px) 100vw, 55vw"
               className="object-cover"
             />
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <span className="opacity-40 text-xs">
-            {product?.sex.toUpperCase()}
+        {/* Product Information */}
+        <div className="flex flex-col pt-2 md:pt-8">
+          {/* Brand / Gender */}
+          <span className="text-[10px] font-medium tracking-[0.25em] text-black/40">
+            {product.sex.toUpperCase()}
           </span>
-          <h2 className="text-3xl font-semibold font-heading">
+
+          {/* Product Name */}
+          <h1 className="mt-3 font-heading text-4xl leading-none tracking-tight md:text-5xl lg:text-6xl">
             {product.name}
-          </h2>
-          <p className="font-bold text-xl">₦{Number(product?.price).toLocaleString()}</p>
-          {product?.sizes && (
+          </h1>
+
+          {/* Price */}
+          <p className="mt-5 text-xl font-medium">
+            ₦{Number(product.price).toLocaleString()}
+          </p>
+
+          {/* Size */}
+          <div className="mt-9">
+            <div className="mb-3 flex items-center justify-between">
+              <span className="text-sm font-medium">Select Size</span>
+
+              <button className="text-xs text-black/50 underline underline-offset-4">
+                Size Guide
+              </button>
+            </div>
+
             <SizePicker
-              sizes={product?.sizes}
+              sizes={product.sizes}
               selectedSize={selectedSize}
-              onSizeSelected={(size) => {
-                setSelectedSize(size);
-              }}
+              onSizeSelected={handleSizeChange}
             />
-          )}
+          </div>
+
+          {/* Stock */}
+          <div className="mt-4 text-xs">
+            {selectedSize.stock > 0 ? (
+              <span className="text-black/50">
+                {selectedSize.stock <= 5
+                  ? `Only ${selectedSize.stock} left in stock`
+                  : "In stock"}
+              </span>
+            ) : (
+              <span className="font-medium text-red-600">
+                Out of stock
+              </span>
+            )}
+          </div>
+
+          {/* Quantity */}
           <QuantitySelector
             stock={selectedSize.stock}
             quantity={quantitySelected}
             setQuantitySelected={setQuantitySelected}
           />
 
-          <div className="p-4 mt-3 border border-neutral-200 rounded-2xl space-y-2">
-            <h3 className=" font-semibold font-body">Description & Fit</h3>
-            <p className="text-sm opacity-60">{product.description}</p>
+          {/* Description */}
+          <div className="mt-8 border-y border-black/10 py-6">
+            <h3 className="text-sm font-semibold">
+              Description & Fit
+            </h3>
+
+            <p className="mt-3 text-sm leading-6 text-black/55">
+              {product.description}
+            </p>
           </div>
-          <ShippingSection />
 
-          {/* {Order Buttons} */}
+          {/* Shipping */}
+          <div className="border-b border-black/10 py-6">
+            <ShippingSection />
+          </div>
 
-          <div className="flex items-center gap-3 justify-between md:justify-start md:mt-auto mt-6">
+          {/* Actions */}
+          <div className="mt-7 grid grid-cols-2 gap-3">
             <button
-              onClick={async () => {
-                setLoading(true);
-                await addToCart(selectedSize.product_size_id, quantitySelected);
-                setLoading(false);
-              }}
-              className="rounded-full md:text-base text-sm text-nowrap md:px-8 px-6 py-4 md:py-5 w-fit border gap-3 border-neutral-300 flex items-center"
+              disabled={loading || selectedSize.stock === 0}
+              onClick={() =>
+                addToCart(
+                  selectedSize.product_size_id,
+                  quantitySelected
+                )
+              }
+              className="group flex items-center justify-center gap-2 border border-black px-4 py-4 text-xs font-semibold tracking-wider transition hover:bg-black hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
             >
-              <p>Add to Cart</p>
-              {loading ? <Loader2 className="animate-spin"/> : <ShoppingCart />}
+              {loading ? (
+                <>
+                  <Loader2 size={17} className="animate-spin" />
+                  ADDING...
+                </>
+              ) : (
+                <>
+                  <ShoppingBag
+                    size={17}
+                    className="transition-transform group-hover:-translate-y-0.5"
+                  />
+                  ADD TO CART
+                </>
+              )}
             </button>
 
             <button
-              onClick={() => router.push(`/checkout?productSizeId=${selectedSize.product_size_id}&quantity=${quantitySelected}`)}
-              className="rounded-full md:text-base text-sm text-nowrap mx:px-8 px-6 py-4 md:py-5 w-fit gap-3 bg-black text-white flex items-center"
+              disabled={selectedSize.stock === 0}
+              onClick={() =>
+                router.push(
+                  `/checkout?productSizeId=${selectedSize.product_size_id}&quantity=${quantitySelected}`
+                )
+              }
+              className="group flex items-center justify-center gap-2 bg-black px-4 py-4 text-xs font-semibold tracking-wider text-white transition hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-40"
             >
-              <p>Buy Now</p>
-              <ArrowRight />
+              BUY NOW
+
+              <ArrowRight
+                size={17}
+                className="transition-transform group-hover:translate-x-1"
+              />
             </button>
           </div>
         </div>
       </section>
-      <div className="overflow-x-scroll no-scrollbar">
-        <MoreToLike categoryId={product.category_id} />
+
+      {/* More Products */}
+      <div className="my-20 overflow-hidden md:my-28">
+        <MoreToLike
+          categoryId={product.category_id}
+          currentProductId={product.id}
+        />
       </div>
     </div>
   );
@@ -133,27 +225,47 @@ export function ProductDetails({ product }: { product: Product }) {
 
 function ShippingSection() {
   return (
-    <div className="rounded-xl border border-neutral-200 p-4 space-y-3">
-      <h3 className=" font-semibold">Shipping</h3>
+    <div>
+      <h3 className="text-sm font-semibold">
+        Shipping
+      </h3>
 
-      <div className="flex items-center justify-between">
-        {" "}
+      <div className="mt-5 grid grid-cols-2 gap-5">
         <div className="flex items-center gap-3">
-          <div className="flex justify-center items-center bg-neutral-100 h-12 w-12 rounded-full">
-            <CalendarFold stroke="#00000080" />
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-neutral-100">
+            <CalendarFold
+              size={18}
+              className="text-black/50"
+            />
           </div>
+
           <div>
-            <span className="opacity-50 text-xs">Delivery Time</span>
-            <div className="font-semibold text-sm">3-4 working days</div>
+            <span className="text-[10px] uppercase tracking-wider text-black/40">
+              Delivery
+            </span>
+
+            <div className="mt-1 text-xs font-medium">
+              3–4 working days
+            </div>
           </div>
         </div>
+
         <div className="flex items-center gap-3">
-          <div className="flex justify-center items-center bg-neutral-100 h-12 w-12 rounded-full">
-            <Package stroke="#00000080" />
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-neutral-100">
+            <Package
+              size={18}
+              className="text-black/50"
+            />
           </div>
+
           <div>
-            <span className="opacity-50 text-xs">Package</span>
-            <div className="font-semibold text-sm">Regular Package</div>
+            <span className="text-[10px] uppercase tracking-wider text-black/40">
+              Package
+            </span>
+
+            <div className="mt-1 text-xs font-medium">
+              Regular Package
+            </div>
           </div>
         </div>
       </div>
@@ -161,32 +273,64 @@ function ShippingSection() {
   );
 }
 
-function MoreToLike({ categoryId }: { categoryId: string }) {
+function MoreToLike({
+  categoryId,
+  currentProductId,
+}: {
+  categoryId: string;
+  currentProductId: string;
+}) {
   const [moreProducts, setMoreProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     let cancelled = false;
 
-    (async () => {
-      const res = await fetch(`/api/products?category_id=${categoryId}`);
-      const data = await res.json();
+    async function fetchProducts() {
+      try {
+        const res = await fetch(
+          `/api/products?category_id=${categoryId}`
+        );
 
-      if (!cancelled) {
-        setMoreProducts(data.products);
+        if (!res.ok) return;
+
+        const data = await res.json();
+
+        if (!cancelled) {
+          setMoreProducts(
+            data.products.filter(
+              (item: Product) => item.id !== currentProductId
+            )
+          );
+        }
+      } catch (error) {
+        console.error(
+          "Failed to fetch recommended products:",
+          error
+        );
       }
-    })();
+    }
+
+    fetchProducts();
 
     return () => {
       cancelled = true;
     };
-  }, [categoryId]);
+  }, [categoryId, currentProductId]);
+
+  if (moreProducts.length === 0) {
+    return null;
+  }
 
   return (
-    <div className="w-full space-y-12 my-14">
+    <div className="w-full space-y-10">
       <Subtitle label="You Might Also Like" />
-      <div className="flex items-start gap-2 overflow-x-scroll no-scrollbar w-[92vw]">
+
+      <div className="flex w-full gap-4 overflow-x-auto pb-4 no-scrollbar">
         {moreProducts.map((item) => (
-          <div key={item.id} className="w-60 shrink-0">
+          <div
+            key={item.id}
+            className="w-56 shrink-0 md:w-64"
+          >
             <BaseProductCard product={item} />
           </div>
         ))}
@@ -205,29 +349,37 @@ function QuantitySelector({
   setQuantitySelected: (quantity: number) => void;
 }) {
   return (
-    <div className="flex items-center border h-12 gap-4 mt-4 pl-4 w-fit rounded-xl border-neutral-300 overflow-hidden [&_button]:border-neutral-300 ">
-      <span>Quantity</span>
+    <div className="mt-5 flex h-12 w-fit items-center border border-black/15">
+      <span className="px-4 text-xs font-medium">
+        Quantity
+      </span>
 
       <button
+        disabled={quantity <= 1}
         onClick={() => {
           if (quantity > 1) {
             setQuantitySelected(quantity - 1);
           }
         }}
-        className="border-x w-12 hover:bg-neutral-200 flex items-center justify-center h-full"
+        className="flex h-full w-11 items-center justify-center border-l border-black/10 transition hover:bg-neutral-100 disabled:opacity-30"
       >
-        <Minus size={18} />
+        <Minus size={16} />
       </button>
-      <span className="w-5 flex items-center justify-center">{quantity}</span>
+
+      <span className="flex h-full w-10 items-center justify-center border-l border-black/10 text-sm">
+        {quantity}
+      </span>
+
       <button
+        disabled={quantity >= stock}
         onClick={() => {
           if (quantity < stock) {
             setQuantitySelected(quantity + 1);
           }
         }}
-        className="border-l w-12 flex  hover:bg-neutral-200 items-center justify-center h-full"
+        className="flex h-full w-11 items-center justify-center border-l border-black/10 transition hover:bg-neutral-100 disabled:opacity-30"
       >
-        <Plus size={18} className="" />
+        <Plus size={16} />
       </button>
     </div>
   );

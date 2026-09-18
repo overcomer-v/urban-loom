@@ -22,12 +22,20 @@ export default async function CartPage() {
             Log in to add items to your cart and manage your shopping bag.
           </p>
 
-          <a
-            href="/signin?redirect=/cart"
-            className="mt-7 px-8 py-3 bg-black text-white rounded-lg text-sm font-medium hover:bg-neutral-800 transition"
-          >
-            Log in
-          </a>
+          <div className="flex gap-4 items-center">
+            <a
+              href="/signin?redirect=/cart"
+              className="mt-7 px-8 py-3 bg-black text-white rounded-lg text-sm font-medium hover:bg-neutral-800 transition"
+            >
+              Log in
+            </a>
+            <a
+              href="/signup?redirect=/cart"
+              className="mt-7 px-8 py-3 border-black border-2 hover:text-white rounded-lg text-sm font-medium hover:bg-neutral-800 transition"
+            >
+              Sign up
+            </a>
+          </div>
 
           <a
             href="/shop"
@@ -40,5 +48,5 @@ export default async function CartPage() {
     );
   }
 
-  return <MyCartsPage/>;
+  return <MyCartsPage />;
 }

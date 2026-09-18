@@ -31,10 +31,7 @@ function SubHeroOne() {
       <Container>
         <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16 lg:gap-24">
           {/* Image */}
-          <Link
-            href="/shop"
-            className="group relative block overflow-hidden"
-          >
+          <Link href="/shop" className="group relative block overflow-hidden">
             <Image
               src="/homepage_decorations/mohamed-shimaq-yEkmyaZDiDM-unsplash.jpg"
               alt="Urban Loom fashion collection"
@@ -73,9 +70,9 @@ function SubHeroOne() {
 
             {/* Description */}
             <p className="mt-7 max-w-md text-sm leading-7 text-black/55 md:text-base">
-              Contemporary pieces designed with character, confidence,
-              and everyday movement in mind. Discover styles that feel
-              as individual as you are.
+              Contemporary pieces designed with character, confidence, and
+              everyday movement in mind. Discover styles that feel as individual
+              as you are.
             </p>
 
             {/* CTA */}
@@ -84,7 +81,6 @@ function SubHeroOne() {
               className="group mt-9 flex w-fit items-center gap-4 border border-black bg-black px-7 py-3.5 text-xs font-semibold tracking-[0.15em] text-white transition duration-300 hover:bg-transparent hover:text-black"
             >
               EXPLORE COLLECTION
-
               <ArrowRight
                 size={16}
                 className="transition-transform duration-300 group-hover:translate-x-1"
@@ -97,23 +93,20 @@ function SubHeroOne() {
   );
 }
 
-
-
 function HeroSec() {
   return (
-    <section className="relative w-full h-[78vh] min-h-[600px] lg:h-screen overflow-hidden">
-      <Image
-        src="/homepage_decorations/ChatGPT Image Sep 11, 2026, 10_15_18 PM.png"
-        alt="Urban Loom fashion collection"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-[60%_center]"
-      />
-
+    <section className="relative h-[72svh] min-h-[520px] w-full overflow-hidden md:h-[78vh] lg:h-screen">
+  <Image
+  src="/homepage_decorations/ChatGPT Image Sep 11, 2026, 10_15_18 PM.png"
+  alt="Urban Loom fashion collection"
+  fill
+  priority
+  quality={100}
+  sizes="100vw"
+  className="object-cover object-[65%_center] md:object-[60%_center]"
+/>
       {/* Image overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-transparent" />
-
       <Container className="relative z-10 h-full">
         <div className="flex h-full items-end pb-16 md:pb-24 lg:pb-28">
           <div className="w-full max-w-2xl text-white">
@@ -135,8 +128,8 @@ function HeroSec() {
 
             {/* Description */}
             <p className="mt-6 max-w-lg text-sm leading-6 text-white/80 md:text-base">
-              Carefully crafted pieces for those who see fashion
-              as an expression of identity.
+              Carefully crafted pieces for those who see fashion as an
+              expression of identity.
             </p>
 
             {/* Buttons */}
@@ -146,7 +139,6 @@ function HeroSec() {
                 className="group flex items-center gap-3 bg-white px-7 py-3.5 text-xs font-semibold tracking-wider text-black transition hover:bg-neutral-200"
               >
                 SHOP COLLECTION
-
                 <ShoppingBag
                   size={16}
                   className="transition-transform group-hover:translate-x-0.5"
@@ -158,7 +150,6 @@ function HeroSec() {
                 className="group flex items-center gap-3 border border-white/70 px-7 py-3.5 text-xs font-semibold tracking-wider text-white transition hover:bg-white hover:text-black"
               >
                 CONTACT US
-
                 <ArrowRight
                   size={16}
                   className="transition-transform group-hover:translate-x-1"
