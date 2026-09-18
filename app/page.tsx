@@ -27,101 +27,147 @@ export default async function Home() {
 
 function SubHeroOne() {
   return (
-    <div className="py-12 bg-offwhite">
-      <Container className="grid md:grid-cols-2 gap-5 justify-between w-full">
-        <div>
-          <Image
-            src={
-              "/homepage_decorations/mohamed-shimaq-yEkmyaZDiDM-unsplash.jpg"
-            }
-            alt=""
-            height={800}
-            width={500}
-            className="object-cover h-140 md:w-[90%] w-full z-50 rounded-md"
-          />
-        </div>
-
-        <div className="flex flex-col md:w-3/4 items-left text-black justify-center">
-          <p className="opacity-30 text-sm tracking-widest mb-3 font-medium">URBAN LOOM</p>
-          <p className="md:text-7xl text-5xl text-left font-heading mb-6 font-medium">
-            Shop the Latest Trends
-          </p>
-          <p className="opacity-50 text-left mb-6">
-            Urban fashion reimagined scarefully crafted pieces designed to
-            express who you are. Every thread tells a story crafted for the
-            streets, designed for your identity.
-          </p>
+    <section className="bg-offwhite py-16 md:py-24 lg:py-32">
+      <Container>
+        <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16 lg:gap-24">
+          {/* Image */}
           <Link
-            href={"/shop"}
-            className="border-2 bg-black text-white rounded text-sm font-semibold border-black px-7 py-3 w-fit mt-3"
+            href="/shop"
+            className="group relative block overflow-hidden"
           >
-            Shop Now
+            <Image
+              src="/homepage_decorations/mohamed-shimaq-yEkmyaZDiDM-unsplash.jpg"
+              alt="Urban Loom fashion collection"
+              width={800}
+              height={1000}
+              className="h-[520px] w-full object-cover object-center transition duration-700 group-hover:scale-105 md:h-[650px]"
+            />
+
+            {/* Image label */}
+            <div className="absolute bottom-5 left-5 flex items-center gap-3 text-white">
+              <span className="h-px w-8 bg-white" />
+
+              <span className="text-[10px] font-medium tracking-[0.25em]">
+                URBAN LOOM
+              </span>
+            </div>
           </Link>
+
+          {/* Content */}
+          <div className="flex max-w-xl flex-col">
+            {/* Eyebrow */}
+            <div className="mb-6 flex items-center gap-3">
+              <span className="h-px w-8 bg-black" />
+
+              <p className="text-[10px] font-semibold tracking-[0.3em] text-black/45">
+                THE URBAN LOOM EDIT
+              </p>
+            </div>
+
+            {/* Heading */}
+            <h2 className="font-heading text-5xl leading-[0.95] tracking-tight md:text-6xl lg:text-7xl">
+              Made for the
+              <br />
+              <span className="italic">way you move.</span>
+            </h2>
+
+            {/* Description */}
+            <p className="mt-7 max-w-md text-sm leading-7 text-black/55 md:text-base">
+              Contemporary pieces designed with character, confidence,
+              and everyday movement in mind. Discover styles that feel
+              as individual as you are.
+            </p>
+
+            {/* CTA */}
+            <Link
+              href="/shop"
+              className="group mt-9 flex w-fit items-center gap-4 border border-black bg-black px-7 py-3.5 text-xs font-semibold tracking-[0.15em] text-white transition duration-300 hover:bg-transparent hover:text-black"
+            >
+              EXPLORE COLLECTION
+
+              <ArrowRight
+                size={16}
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Link>
+          </div>
         </div>
       </Container>
-    </div>
+    </section>
   );
 }
 
+
+
 function HeroSec() {
   return (
-    <div className=" m-auto relative w-full h-[70vh] md:h-[70vh] lg:h-screen">
-      {/* Image sits directly in the relative parent, outside Container */}
+    <section className="relative w-full h-[78vh] min-h-[600px] lg:h-screen overflow-hidden">
       <Image
         src="/homepage_decorations/ChatGPT Image Sep 11, 2026, 10_15_18 PM.png"
-        alt=""
-        width={3000}
-        height={3000}
-        loading="eager"
-        className="object-cover object-[60%_center] w-full h-full"
+        alt="Urban Loom fashion collection"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-[60%_center]"
       />
 
-      {/* Container only wraps the text content */}
-      <div className="top-0 left-0 right-0 bottom-0 absolute bg-[#00000040]">
-        <Container className=" z-10 h-full my-auto flex gap-12">
-          <div className="flex text-white my-auto mx-auto md:mx-0 md:items-start items-center flex-col gap-4 md:py-12 py-3 w-full md:w-2/3 xl:w-1/2">
-            <div className="opacity-60 flex items-center gap-3">
-              <div className="w-8 h-0.5 bg-white"></div>
+      {/* Image overlay */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-transparent" />
 
-              <span className="md:text-sm text-xs font-semibold">
+      <Container className="relative z-10 h-full">
+        <div className="flex h-full items-end pb-16 md:pb-24 lg:pb-28">
+          <div className="w-full max-w-2xl text-white">
+            {/* Eyebrow */}
+            <div className="mb-5 flex items-center gap-3 opacity-80">
+              <div className="h-px w-8 bg-white" />
+
+              <span className="text-[11px] md:text-xs font-medium tracking-[0.25em]">
                 FASHION & LIFESTYLE
               </span>
-              <div className="w-8 h-0.5 bg-white"></div>
             </div>
 
-            <p className="text-5xl md:text-6xl lg:text-8xl font-medium font-heading md:text-start text-center">
-              Unleash Your Style, Shop the Latest Trends
+            {/* Heading */}
+            <h1 className="font-heading text-5xl leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
+              Define your
+              <br />
+              <span className="italic">everyday.</span>
+            </h1>
+
+            {/* Description */}
+            <p className="mt-6 max-w-lg text-sm leading-6 text-white/80 md:text-base">
+              Carefully crafted pieces for those who see fashion
+              as an expression of identity.
             </p>
 
-            <p className="opacity-90 text-sm md:text-base w-full font-m md:text-start text-center">
-              Urban fashion reimagined scarefully crafted pieces designed to
-              express who you are.{" "}
-              <span className="md:inline hidden ">
-                Every thread tells a story crafted for the streets, designed for
-                your identity.
-              </span>
-            </p>
-
-            <div className="flex items-center gap-4">
+            {/* Buttons */}
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
-                href={"/shop"}
-                className="bg-white text-xs text-nowrap flex rounded items-center w-fit gap-1.5 font-semibold text-black md:px-10 px-6 py-3 mt-6 md:mt-8"
+                href="/shop"
+                className="group flex items-center gap-3 bg-white px-7 py-3.5 text-xs font-semibold tracking-wider text-black transition hover:bg-neutral-200"
               >
-                <p>SHOP NOW</p>
-                <ShoppingBag size={18} />
+                SHOP COLLECTION
+
+                <ShoppingBag
+                  size={16}
+                  className="transition-transform group-hover:translate-x-0.5"
+                />
               </Link>
 
               <Link
-                href={"/contact-us"}
-                className="border-[1.5px] text-nowrap border-white text-xs flex rounded items-center w-fit gap-1.5 font-semibold text-white md:px-9.5 px-5.5 py-2.5 mt-6 md:mt-8"
+                href="/contact-us"
+                className="group flex items-center gap-3 border border-white/70 px-7 py-3.5 text-xs font-semibold tracking-wider text-white transition hover:bg-white hover:text-black"
               >
-                <p>CONTACT US</p>
-                <ArrowRight size={18} />
+                CONTACT US
+
+                <ArrowRight
+                  size={16}
+                  className="transition-transform group-hover:translate-x-1"
+                />
               </Link>
             </div>
           </div>
-        </Container>
-      </div>
-    </div>
+        </div>
+      </Container>
+    </section>
   );
 }

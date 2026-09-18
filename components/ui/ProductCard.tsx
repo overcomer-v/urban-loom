@@ -18,9 +18,9 @@ export function BaseProductCard({ product }: { product: Product }) {
           <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-700 backdrop-blur-sm">
             {product.category}
           </span>
-          <div className="absolute inset-x-3 bottom-3 hidden translate-y-2 items-center justify-between rounded-md bg-black px-3 py-2.5 text-xs font-medium text-white opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 md:flex">
+          {/* <div className="absolute inset-x-3 bottom-3 hidden translate-y-2 items-center justify-between rounded-md bg-black px-3 py-2.5 text-xs font-medium text-white opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100 md:flex">
             View piece <ArrowUpRight className="h-4 w-4" />
-          </div>
+          </div> */}
         </div>
 
         <div className="flex items-start justify-between gap-3 px-2 pb-2 pt-4">
@@ -28,13 +28,13 @@ export function BaseProductCard({ product }: { product: Product }) {
             <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-neutral-400">
               {product.sex}
             </p>
-            <h3 className="mt-1 truncate font-heading text-xl font-semibold leading-tight text-neutral-900">
+            <h3 className="mt-1 line-clamp-3 font-heading text-xl font-semibold leading-tight text-neutral-900">
               {product.name}
-            </h3>
+            </h3>{" "}
+            <p className="shrink-0 pt-3 text-sm font-semibold text-neutral-900">
+              ₦{Number(product.price).toLocaleString()}
+            </p>
           </div>
-          <p className="shrink-0 pt-3 text-sm font-semibold text-neutral-900">
-            ₦{Number(product.price).toLocaleString()}
-          </p>
         </div>
       </article>
     </Link>
@@ -67,7 +67,9 @@ export function SecondaryProductCard({ product }: { product: Product }) {
             </p>
           </div>
           <div className="flex items-center justify-between gap-3">
-            <p className="text-base font-semibold">₦{Number(product.price).toLocaleString()}</p>
+            <p className="text-base font-semibold">
+              ₦{Number(product.price).toLocaleString()}
+            </p>
             <ArrowUpRight className="h-4 w-4 text-neutral-400 transition group-hover:text-black" />
           </div>
         </div>

@@ -26,11 +26,11 @@ export default function TopCategories({
 }) {
   return (
     <Container className="w-full flex flex-col gap-8">
-      <Subtitle
+      {/* <Subtitle
         label="Top Categories"
         showButton
         onNavLink={`/shop?type=newarrivals&sort=${SORT_OPTIONS[0].value}`}
-      />
+      /> */}
       <div className="grid md:grid-cols-[repeat(auto-fit,minmax(210px,1fr))] grid-cols-2  gap-2  pb-6 overflow-scroll no-scrollbar">
         {categories.map((category) => (
           <Link
