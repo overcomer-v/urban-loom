@@ -1,24 +1,39 @@
-import { Categories } from "@/types/Categories";
-import { Menu, User2, X } from "lucide-react";
+"use client";
+
+import { ArrowRight, ShoppingBag, User2, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { CategoriesSec } from "./CategoriesSec";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
+import { Categories } from "@/types/Categories";
 import { User } from "@/types/User";
+import { CategoriesSec } from "./CategoriesSec";
 
 type MobileNavProps = {
   isOpen: boolean;
   onClose: () => void;
-  user: User;
+  user: User | null;
+  cartCount: number;
 };
 
-export default function MobileNav({ isOpen, onClose, user }: MobileNavProps) {
+export default function MobileNav({
+  isOpen,
+  onClose,
+  user,
+  cartCount,
+}: MobileNavProps) {
   const [categories, setCategories] = useState<Categories[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [categoryError, setCategoryError] = useState(false);
 
   useEffect(() => {
+    if (!isOpen || categories.length > 0) return;
+
     async function fetchCategories() {
       try {
+        setLoading(true);
+        setCategoryError(false);
+
         const response = await fetch("/api/categories");
 
         if (!response.ok) {
@@ -27,128 +42,234 @@ export default function MobileNav({ isOpen, onClose, user }: MobileNavProps) {
 
         const data = await response.json();
 
-        setCategories(data.categories);
+        setCategories(data.categories ?? []);
       } catch (error) {
         console.error("Error fetching categories:", error);
+        setCategoryError(true);
       } finally {
         setLoading(false);
       }
     }
 
     fetchCategories();
-  }, []);
+  }, [isOpen, categories.length]);
 
   return (
     <>
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className={`fixed inset-0 z-40 bg-black/40 transition-opacity duration-300 ${
+        className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 ${
           isOpen
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0"
         }`}
       />
 
-      {/* Nav */}
+      {/* Drawer */}
       <aside
-        className={`fixed top-0 left-0 z-100 h-full w-90 bg-white
-          transition-transform duration-300 ease-in-out
-          ${isOpen ? "translate-x-0" : "-translate-x-full"} flex flex-col px-8 py-8 gap-6`}
+        aria-hidden={!isOpen}
+        className={`fixed left-0 top-0 z-50 flex h-full w-[88vw] max-w-sm flex-col bg-white px-6 py-7 transition-transform duration-300 ease-out sm:px-8 ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
-        <div className="flex items-center justify-between mb-12">
-          <div className="flex items-center gap-3 ">
-            <Link href="/">
-              <Image
-                src="/homepage_decorations/urban-loom-icon.png"
-                alt=""
-                width={30}
-                height={30}
-              />
-            </Link>
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <Link href="/" onClick={onClose} className="flex items-center gap-3">
+            <Image
+              src="/homepage_decorations/urban-loom-icon.png"
+              alt="Urban Loom"
+              width={30}
+              height={30}
+              className="rounded-md"
+            />
 
-            <Link
-              href="/"
-              className="font-heading font-bold md:text-xl text-2xl"
-            >
+            <span className="font-heading text-xl font-bold tracking-tight">
               URBAN LOOM
-            </Link>
-          </div>
+            </span>
+          </Link>
 
-          <button onClick={onClose}>
-            <X className="opacity-40" size={24} />
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close navigation"
+            className="flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-black/5"
+          >
+            <X size={21} strokeWidth={1.8} className="text-black/65" />
           </button>
         </div>
 
-        {user ? (
-          <div className="border-b-2 pb-4 mb-6 border-neutral-100">
-            <div className="flex items-center gap-4">
-              <User2 className=" p-1 rounded-full border-2 opacity-60 w-13 h-10" />
-              <div>
-                <span className="text-wrap font-medium font-sans tracking-wider ">
-                  {user.name.split(" ", 2).join(" ")}
-                </span>{" "}
-                <span className="text-wrap text-sm opacity-70">{user.email}</span>
+        {/* Account */}
+        <div className="mt-10 border-y border-black/10 py-6">
+          {user ? (
+            <div>
+              <div className="flex items-center gap-4">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-black/5">
+                  <User2
+                    className="text-black/50"
+                    size={20}
+                    strokeWidth={1.6}
+                  />
+                </div>
+
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-semibold">{user.name}</p>
+
+                  <p className="mt-0.5 truncate text-xs text-black/45">
+                    {user.email}
+                  </p>
+                </div>
               </div>
+
+              <Link
+                href="/orders"
+                onClick={onClose}
+                className="group mt-5 flex items-center justify-between text-[11px] font-semibold tracking-[0.16em]"
+              >
+                <span>MY ORDERS</span>
+
+                <ArrowRight
+                  size={15}
+                  strokeWidth={1.7}
+                  className="transition-transform group-hover:translate-x-1"
+                />
+              </Link>
             </div>
-            <Link href="/orders" onClick={onClose} className="mt-4 block text-sm font-medium">
-              My Orders
+          ) : (
+            <div className="flex items-center justify-between">
+              <Link
+                href="/signin"
+                onClick={onClose}
+                className="text-[11px] font-semibold tracking-[0.16em] text-black/60 transition-colors hover:text-black"
+              >
+                LOG IN
+              </Link>
+
+              <Link
+                href="/signup"
+                onClick={onClose}
+                className="group flex items-center gap-2 bg-black px-5 py-3 text-[11px] font-semibold tracking-[0.16em] text-white transition-colors hover:bg-neutral-800"
+              >
+                SIGN UP
+                <ArrowRight
+                  size={14}
+                  strokeWidth={1.7}
+                  className="transition-transform group-hover:translate-x-1"
+                />
+              </Link>
+            </div>
+          )}
+        </div>
+
+        {/* Navigation */}
+        <nav className="mt-9 flex flex-1 flex-col overflow-y-auto">
+          {/* Home */}
+          <Link
+            href="/"
+            onClick={onClose}
+            className="font-heading text-3xl leading-none tracking-tight transition-colors hover:text-black/45"
+          >
+            Home
+          </Link>
+
+          {/* Shop */}
+          <div className="mt-9">
+            <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.25em] text-black/35">
+              Shop
+            </p>
+
+            {categoryError ? (
+              <div className="flex items-center justify-between border border-black/10 px-4 py-3">
+                <span className="text-xs text-black/50">
+                  Unable to load categories
+                </span>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setCategories([]);
+                    setCategoryError(false);
+                  }}
+                  className="text-[10px] font-semibold tracking-[0.15em] underline underline-offset-4"
+                >
+                  RETRY
+                </button>
+              </div>
+            ) : (
+              <CategoriesSec
+                categories={categories}
+                loading={loading}
+                onItemsClick={onClose}
+                mobile
+              />
+            )}
+          </div>
+
+          {/* Secondary Links */}
+          <div className="mt-9 flex flex-col gap-7">
+            <Link
+              href="/about"
+              onClick={onClose}
+              className="font-heading text-3xl leading-none tracking-tight transition-colors hover:text-black/45"
+            >
+              About Us
+            </Link>
+
+            <Link
+              href="/contact-us"
+              onClick={onClose}
+              className="font-heading text-3xl leading-none tracking-tight transition-colors hover:text-black/45"
+            >
+              Contact
             </Link>
           </div>
-        ) : (
-          <div className="flex items-center gap-4">
-            <Link
-              href={"/signin"}
-              onClick={() => {
-                onClose();
-              }}
-              className="bg-neutral-100 px-5 py-2 text-xs rounded-4xl text-nowrap"
-            >
-              Log In
-            </Link>
 
-            <Link
-              href="/signup"
-              onClick={() => {
-                onClose();
-              }}
-              className="bg-black text-white px-5 py-2 text-xs rounded-4xl text-nowrap"
-            >
-              Sign Up
-            </Link>
+          {/* Cart */}
+          <Link
+            href="/cart"
+            onClick={onClose}
+            className="group mt-10 flex items-center justify-between border-y border-black/10 py-5"
+          >
+            <div className="flex items-center gap-3">
+              <ShoppingBag
+                size={19}
+                strokeWidth={1.6}
+                className="text-black/60"
+              />
+
+              <span className="text-[11px] font-semibold tracking-[0.18em]">
+                CART
+              </span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              {cartCount > 0 && (
+                <span className="text-xs text-black/40">
+                  {cartCount > 99 ? "99+" : cartCount}
+                </span>
+              )}
+
+              <ArrowRight
+                size={16}
+                strokeWidth={1.7}
+                className="text-black/50 transition-transform group-hover:translate-x-1"
+              />
+            </div>
+          </Link>
+        </nav>
+
+        {/* Footer */}
+        <div className="border-t border-black/10 pt-5">
+          <div className="flex items-center justify-between">
+            <span className="text-[9px] font-medium tracking-[0.25em] text-black/35">
+              FASHION & LIFESTYLE
+            </span>
+
+            <span className="text-[9px] tracking-[0.2em] text-black/30">
+              © {new Date().getFullYear()}
+            </span>
           </div>
-        )}
-
-        <Link
-          href="/"
-          onClick={() => {
-            onClose();
-          }}
-        >
-          HOME
-        </Link>
-        <CategoriesSec
-          categories={categories}
-          loading={loading}
-          onItemsClick={onClose}
-        />
-
-        <Link
-          href="/about"
-          onClick={() => {
-            onClose();
-          }}
-        >
-          ABOUT US
-        </Link>
-        <Link
-          href="/contact-us"
-          onClick={() => {
-            onClose();
-          }}
-        >
-          CONTACT US
-        </Link>
+        </div>
       </aside>
     </>
   );

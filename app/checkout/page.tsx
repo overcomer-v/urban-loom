@@ -17,13 +17,13 @@ export default async function CheckoutPage() {
         <div className="flex gap-4 items-center">
           <a
             href="/signin?redirect=/cart"
-            className="mt-7 px-8 py-3 bg-black text-white rounded-lg text-sm font-medium hover:bg-neutral-800 transition"
+            className="mt-7 px-8.5 py-3.5 bg-black text-white text-sm font-medium hover:bg-neutral-800 transition"
           >
             Log in
           </a>
           <a
             href="/signup?redirect=/cart"
-            className="mt-7 px-8 py-3 border-black border-2 hover:text-white rounded-lg text-sm font-medium hover:bg-neutral-800 transition"
+            className="mt-7 px-8 py-3 border-black border-2 hover:text-white  text-sm font-medium hover:bg-neutral-800 transition"
           >
             Sign up
           </a>
