@@ -107,7 +107,7 @@ function HeroSec() {
 />
 
       {/* Image overlay */}
-      <div className="absolute z-50 inset-0 bg-gradient-to-r from-black/70 via-black/35 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/35 to-transparent" />
       <Container className="relative z-50 h-full">
         <div className="flex h-full items-end pb-16 md:pb-24 lg:pb-28">
           <div className="w-full max-w-2xl text-white">

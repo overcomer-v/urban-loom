@@ -276,7 +276,7 @@ function AccountOptions({
 
   return (
     <div
-      className={`absolute right-0 top-12 z-50 w-72 origin-top-right rounded-xl border border-black/10 bg-white p-2 shadow-xl transition-all duration-200 ${
+      className={`absolute right-0 top-12 z-1000 w-72 origin-top-right rounded-xl border border-black/10 bg-white p-2 shadow-xl transition-all duration-200 ${
         showDialog
           ? "visible scale-100 opacity-100"
           : "invisible scale-95 opacity-0"
